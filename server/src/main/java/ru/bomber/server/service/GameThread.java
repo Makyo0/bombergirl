@@ -1,19 +1,13 @@
 package ru.bomber.server.service;
 
 import org.springframework.web.socket.TextMessage;
-import ru.bomber.server.game.Pawn;
-import ru.bomber.server.game.Point;
 import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
 import java.util.Collection;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameThread implements Runnable {
 
     private String gameId;
-    private AtomicInteger pawnGenerator = new AtomicInteger();
-    private AtomicInteger replicaGenerator = new AtomicInteger();
 
     public GameThread(String gameId) {
         this.gameId = gameId;
@@ -26,16 +20,8 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
 
-        System.out.println("Starting new game");
-        Pawn pawn1 = new Pawn(pawnGenerator.getAndIncrement(), new Point(20, 10));
-        pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
-        Pawn pawn2 = new Pawn(pawnGenerator.getAndIncrement(), new Point(20, 90));
-        pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
-
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
-
-        replica.put(replicaGenerator.getAndIncrement(), pawn1);
-        replica.put(replicaGenerator.getAndIncrement(), pawn2);
+        GameMechanics gameMechanics = GameService.getGameMechanics(gameId);
+        gameMechanics.initGame(gameId);
 
         double FPS = 60.0;
         long lastTime = System.nanoTime();
@@ -55,15 +41,14 @@ public class GameThread implements Runnable {
                 delta--;
             }
             if (running) {
-                Collection replicaToSend = replica.values();
+                gameMechanics.doMechanics();
+                Collection replicaToSend = GameService.getReplica(gameId).values();
                 Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
                 TextMessage message = new TextMessage(JsonHelper.toJson(msg));
-//                System.out.println("Sending message " + message.getPayload());
+//              System.out.println("Sending message " + message.getPayload());
                 GameService.broadcast(Integer.parseInt(gameId), message);
             }
             frames++;
-            pawn1.setDirection("");
-            pawn2.setDirection("");
             try {
                 Thread.sleep(Math.round(1000 / FPS));
             } catch (InterruptedException e) {

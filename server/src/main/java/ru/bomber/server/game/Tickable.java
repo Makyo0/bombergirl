@@ -1,4 +1,4 @@
-package ru.bomber.server.tick;
+package ru.bomber.server.game;
 
 /**
  * Any game object that changes with time
