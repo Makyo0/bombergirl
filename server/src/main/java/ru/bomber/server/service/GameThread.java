@@ -37,6 +37,7 @@ public class GameThread implements Runnable {
         replica.put(replicaGenerator.getAndIncrement(), pawn1);
         replica.put(replicaGenerator.getAndIncrement(), pawn2);
 
+        double FPS = 60.0;
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -61,6 +62,13 @@ public class GameThread implements Runnable {
                 GameService.broadcast(Integer.parseInt(gameId), message);
             }
             frames++;
+            pawn1.setDirection("");
+            pawn2.setDirection("");
+            try {
+                Thread.sleep(Math.round(1000 / FPS));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;

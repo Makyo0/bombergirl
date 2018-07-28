@@ -95,20 +95,24 @@ public class GameService {
             ConcurrentHashMap<Integer, Object> replica = getReplica(gameId);
             for (Object object:
                  replica.values()) {
-                if (object.getClass().equals(Pawn.class)) {
+                if (object instanceof Pawn) {
                     Pawn pawn = (Pawn) object;
                     if (pawn.getPlayerId() == pawnPlayerId) {
                         if (direction == Direction.UP) {
                             pawn.setY(pawn.getY() + 1);
+                            pawn.setDirection(Direction.UP.toString());
                         }
                         if (direction == Direction.DOWN) {
                             pawn.setY(pawn.getY() - 1);
+                            pawn.setDirection(Direction.DOWN.toString());
                         }
                         if (direction == Direction.RIGHT) {
                             pawn.setX(pawn.getX() + 1);
+                            pawn.setDirection(Direction.RIGHT.toString());
                         }
                         if (direction == Direction.LEFT) {
                             pawn.setX(pawn.getX() - 1);
+                            pawn.setDirection(Direction.LEFT.toString());
                         }
                     }
                 }
