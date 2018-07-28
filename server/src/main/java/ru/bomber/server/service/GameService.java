@@ -34,10 +34,8 @@ public class GameService {
 
 
     public static String start(String gameId) {
-        GameThread gameThread = new GameThread();
-        gameThread.setGameId(gameId);
-        Thread newGameThread = new Thread(gameThread, "gameThread:" + gameId);
-        newGameThread.start();
+        Thread gameThread = new Thread(new GameThread(gameId), "gameThread:" + gameId);
+        gameThread.start();
         return gameId;
     }
 

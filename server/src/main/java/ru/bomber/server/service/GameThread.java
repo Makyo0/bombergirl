@@ -15,6 +15,9 @@ public class GameThread implements Runnable {
     private AtomicInteger pawnGenerator = new AtomicInteger();
     private AtomicInteger replicaGenerator = new AtomicInteger();
 
+    public GameThread(String gameId) {
+        this.gameId = gameId;
+    }
 
     public void setGameId(String gameId) {
         this.gameId = gameId;
