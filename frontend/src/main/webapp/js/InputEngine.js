@@ -4,6 +4,7 @@ var InputEngine = function () {
      * the action we want to take when that key is pressed.
      */
     this.bindings = {};
+    this.fps = 60;
 
     /**
      * A dictionary mapping actions that might be taken in our game

@@ -1,6 +1,7 @@
 package ru.bomber.server.game;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ru.bomber.server.message.Direction;
 
 public class Pawn {
 
