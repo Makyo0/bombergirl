@@ -7,7 +7,7 @@ public class Bomb implements Tickable {
     private int id;
     private String type = "Bomb";
     private Point position;
-    private long lifetime = 1500;
+    private long lifetime = 100;
 
     public Bomb(int id, int y, int x) {
         this.id = id;
@@ -17,5 +17,13 @@ public class Bomb implements Tickable {
     @Override
     public void tick(long elapsed) {
         lifetime -= elapsed;
+    }
+
+    public long getLifetime() {
+        return lifetime;
+    }
+
+    public int getId() {
+        return id;
     }
 }

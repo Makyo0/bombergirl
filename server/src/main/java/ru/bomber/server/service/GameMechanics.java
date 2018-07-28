@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import ru.bomber.server.game.Bomb;
 import ru.bomber.server.game.Pawn;
 import ru.bomber.server.game.Point;
+import ru.bomber.server.game.Tickable;
 import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
 import ru.bomber.server.message.Topic;
@@ -19,6 +20,7 @@ public class GameMechanics {
     private static AtomicInteger objectIdGenerator = new AtomicInteger();
     private static AtomicInteger replicaIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Tickable> tickables = new LinkedBlockingQueue<>();
 
     public GameMechanics(int gameId) {
         this.gameId = gameId;
@@ -80,6 +82,7 @@ public class GameMechanics {
                             if (pawn.getPlayerId() == pawnPlayerId) {
                                 Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
                                 replica.put(replicaIdGenerator.getAndIncrement(), bomb);
+                                tickables.offer(bomb);
                             }
                         }
                     }
@@ -92,5 +95,9 @@ public class GameMechanics {
 
     public LinkedBlockingQueue<InputQueueMessage> getInputQueue() {
         return inputQueue;
+    }
+
+    public LinkedBlockingQueue<Tickable> getTickables() {
+        return tickables;
     }
 }

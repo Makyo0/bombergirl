@@ -1,13 +1,18 @@
 package ru.bomber.server.service;
 
 import org.springframework.web.socket.TextMessage;
+import ru.bomber.server.game.Bomb;
+import ru.bomber.server.game.Pawn;
+import ru.bomber.server.game.Tickable;
 import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
 import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameThread implements Runnable {
 
     private String gameId;
+    boolean running = true;
 
     public GameThread(String gameId) {
         this.gameId = gameId;
@@ -20,6 +25,7 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
 
+        ConcurrentHashMap<Integer, Object> replica;
         GameMechanics gameMechanics = GameService.getGameMechanics(gameId);
         gameMechanics.initGame(gameId);
 
@@ -30,29 +36,44 @@ public class GameThread implements Runnable {
         double delta = 0;
         long timer = System.currentTimeMillis();
         int frames = 0;
-        boolean running = true;
 
         while (running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+
             while (delta >= 1) {
+                for (Tickable tickable :
+                        gameMechanics.getTickables()) {
+                    tickable.tick((long) delta);
+                }
                 //Tickable tick();
                 delta--;
             }
+
             if (running) {
                 gameMechanics.doMechanics();
-                Collection replicaToSend = GameService.getReplica(gameId).values();
+                replica = GameService.getReplica(gameId);
+                Collection replicaToSend = replica.values();
                 Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
                 TextMessage message = new TextMessage(JsonHelper.toJson(msg));
-//              System.out.println("Sending message " + message.getPayload());
+//                System.out.println("Sending message " + message.getPayload());
                 GameService.broadcast(Integer.parseInt(gameId), message);
-            }
-            frames++;
-            try {
-                Thread.sleep(Math.round(1000 / FPS));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                //object check
+                for (Object object :
+                        replica.values()) {
+                    //resetting direction binding of Pawn's
+                    if (object instanceof Pawn) {
+                        ((Pawn) object).setDirection("");
+                    }
+                    //using loop to check bomb's status
+                    if (object instanceof Bomb) {
+                        if (((Bomb) object).getLifetime() <= 0) {
+                            replica.remove(((Bomb) object).getId());
+                        }
+                    }
+                }
+                frames++;
             }
 
             if (System.currentTimeMillis() - timer > 1000) {
@@ -60,7 +81,12 @@ public class GameThread implements Runnable {
                 System.out.println("FPS: " + frames);
                 frames = 0;
             }
+
+            try {
+                Thread.sleep(Math.round(1000 / FPS));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        Thread.currentThread().interrupt();
     }
 }
