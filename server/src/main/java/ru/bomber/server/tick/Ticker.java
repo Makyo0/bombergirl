@@ -2,6 +2,7 @@ package ru.bomber.server.tick;
 
 
 import org.slf4j.LoggerFactory;
+import ru.bomber.server.game.Tickable;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;

@@ -2,6 +2,8 @@ package ru.bomber.server.game;
 
 import org.springframework.web.socket.WebSocketSession;
 import ru.bomber.server.network.Player;
+import ru.bomber.server.service.GameMechanics;
+
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -11,6 +13,7 @@ public class GameSession {
     private int numOfPlayers;
     private ArrayList<Player> playersList = new ArrayList<>();
     private ConcurrentHashMap<Integer, Object> replica = new ConcurrentHashMap<>();
+    private GameMechanics gameMechanics;
 
     public GameSession(int newGameId, int numOfPlayers) {
         this.gameId = newGameId;
@@ -18,7 +21,6 @@ public class GameSession {
     }
 
     public int getGameId() {
-
         return gameId;
     }
 
@@ -47,4 +49,10 @@ public class GameSession {
         return replica;
     }
 
+    public GameMechanics getGameMechanics() {
+        if (gameMechanics == null) {
+            gameMechanics = new GameMechanics(gameId);
+        }
+        return gameMechanics;
+    }
 }

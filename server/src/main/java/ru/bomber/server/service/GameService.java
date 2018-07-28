@@ -3,15 +3,10 @@ package ru.bomber.server.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
-import ru.bomber.server.game.Pawn;
 import ru.bomber.server.game.GameSession;
-import ru.bomber.server.message.Direction;
-import ru.bomber.server.message.Topic;
+import ru.bomber.server.message.InputQueueMessage;
 import ru.bomber.server.network.Player;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -80,6 +75,10 @@ public class GameService {
         getGameConnections(gameId).forEach(session -> send(session, msg));
     }
 
+    public static GameMechanics getGameMechanics(String gameId) {
+        return gameMap.get(Integer.valueOf(gameId)).getGameMechanics();
+    }
+
 
     //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"PLANT_BOMB","data":{}}
     //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"MOVE","data":{"direction":"UP"}}
@@ -87,37 +86,9 @@ public class GameService {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         String gameId = nameValuePairList.get(0).getValue();
         JsonNode message = JsonHelper.getJsonNode(msg.getPayload());
-        Topic topic = Topic.valueOf(message.findValue("topic").asText());
-        //Message message = JsonHelper.fromJson(msg.getPayload(), Message.class);
-        if (topic == Topic.MOVE) {
-            Direction direction = Direction.valueOf(message.findValue("direction").asText());
-            int pawnPlayerId = Integer.valueOf(session.getId()); //по реализации сервера sessionId == playerId
-            ConcurrentHashMap<Integer, Object> replica = getReplica(gameId);
-            for (Object object:
-                 replica.values()) {
-                if (object instanceof Pawn) {
-                    Pawn pawn = (Pawn) object;
-                    if (pawn.getPlayerId() == pawnPlayerId) {
-                        if (direction == Direction.UP) {
-                            pawn.setY(pawn.getY() + 1);
-                            pawn.setDirection(Direction.UP.toString());
-                        }
-                        if (direction == Direction.DOWN) {
-                            pawn.setY(pawn.getY() - 1);
-                            pawn.setDirection(Direction.DOWN.toString());
-                        }
-                        if (direction == Direction.RIGHT) {
-                            pawn.setX(pawn.getX() + 1);
-                            pawn.setDirection(Direction.RIGHT.toString());
-                        }
-                        if (direction == Direction.LEFT) {
-                            pawn.setX(pawn.getX() - 1);
-                            pawn.setDirection(Direction.LEFT.toString());
-                        }
-                    }
-                }
-            }
-        }
+        InputQueueMessage inputQueueMessage = new InputQueueMessage(session.getId(), msg.getPayload()); //по реализации сервера sessionId == playerId
+        getGameMechanics(gameId).getInputQueue().offer(inputQueueMessage);
+
     }
 
     public static ConcurrentHashMap<Integer, Object> getReplica(String gameId) {
