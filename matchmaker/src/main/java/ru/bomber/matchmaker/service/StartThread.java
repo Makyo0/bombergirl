@@ -1,18 +1,14 @@
 package ru.bomber.matchmaker.service;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 public class StartThread implements Runnable {
 
-    private static AtomicInteger atomicInteger = new AtomicInteger();
-    private int gameId;
+    private String gameId;
     private int counter;
     public static final int MAX_PLAYER_IN_GAME = 2;
 
-    public StartThread() {
-        this.gameId = atomicInteger.getAndIncrement();
+    public StartThread(String gameId) {
+        this.gameId = gameId;
     }
-
 
     @Override
     public void run() {
@@ -21,7 +17,7 @@ public class StartThread implements Runnable {
             while (counter < 1000) {
                 if (ConnectionQueue.getInstance().size() >= MAX_PLAYER_IN_GAME) {
                     synchronized (this) {
-                        MmRequester.start(String.valueOf(gameId));
+                        MmRequester.start(gameId);
                         System.out.println("Starting game " + gameId);
                         for (int i = 0; i < MAX_PLAYER_IN_GAME; i++) {
                             ConnectionQueue.getInstance().take();
@@ -31,10 +27,10 @@ public class StartThread implements Runnable {
                 } else {
                     Thread.sleep(100);
                     counter++;
-
                 }
             }
             System.out.println("Not enough players");
+            Thread.currentThread().interrupt();
         } catch (Exception e) {
             e.printStackTrace();
         }

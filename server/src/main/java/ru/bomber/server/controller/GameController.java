@@ -16,9 +16,6 @@ import ru.bomber.server.service.GameService;
 @RequestMapping("/game")
 public class GameController {
 
-    @Autowired
-    GameService gameService;
-
     /**
      * curl -i localhost:8090/game/create
      */
@@ -29,7 +26,7 @@ public class GameController {
             produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> create(@RequestParam("playerCount") String playerCount) {
-        String gameId = gameService.create(Integer.parseInt(playerCount));
+        String gameId = GameService.create(Integer.parseInt(playerCount));
         return ResponseEntity.ok().body(gameId); //return gameId
     }
 
@@ -39,7 +36,7 @@ public class GameController {
             produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public synchronized ResponseEntity<String> start(@RequestParam("gameId") String gameId) {
-        String startedGameId = gameService.start(gameId);
+        String startedGameId = GameService.start(gameId);
         return ResponseEntity.ok().body(startedGameId); //return gameId
     }
 
