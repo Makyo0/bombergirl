@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Gradle : atom-bomberman-frontend-master.war (exploded)">
+    <output-path>$PROJECT_DIR$/build/libs/exploded/atom-bomberman-frontend-master.war</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$">
+        <manifest>TWFuaWZlc3QtVmVyc2lvbjogMS4wDQoNCg==</manifest>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/build/libs/exploded/atom-bomberman-frontend-master.war/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="atom-bomberman-frontend-master_main/web/Web Gradle : atom-bomberman-frontend-master.war" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="atom-bomberman-frontend-master_main" />
+          <element id="dir-copy" path="$PROJECT_DIR$/out/production/resources" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

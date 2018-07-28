@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/bombergirl.iml" filepath="$PROJECT_DIR$/bombergirl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/frontend.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/frontend.iml" group="frontend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/frontend_main.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/frontend_main.iml" group="frontend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/frontend/frontend_test.iml" filepath="$PROJECT_DIR$/.idea/modules/frontend/frontend_test.iml" group="frontend" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker.iml" filepath="$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker.iml" group="matchmaker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker_main.iml" filepath="$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker_main.iml" group="matchmaker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker_test.iml" filepath="$PROJECT_DIR$/.idea/modules/matchmaker/matchmaker_test.iml" group="matchmaker" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_main.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_main.iml" group="server" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server_test.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server_test.iml" group="server" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/atom-bomberman-frontend-master.iml" filepath="$PROJECT_DIR$/atom-bomberman-frontend-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/atom-bomberman-frontend-master_main.iml" filepath="$PROJECT_DIR$/.idea/modules/atom-bomberman-frontend-master_main.iml" group="atom-bomberman-frontend-master" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/atom-bomberman-frontend-master_test.iml" filepath="$PROJECT_DIR$/.idea/modules/atom-bomberman-frontend-master_test.iml" group="atom-bomberman-frontend-master" />
+    </modules>
+  </component>
+</project>
