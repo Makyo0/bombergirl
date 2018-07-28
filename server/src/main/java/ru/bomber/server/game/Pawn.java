@@ -26,6 +26,14 @@ public class Pawn {
         this.position.x = x;
     }
 
+    public int getY() {
+        return position.y;
+    }
+
+    public void setY(int y) {
+        this.position.y = y;
+    }
+
     public int getX() {
         return position.x;
     }
@@ -36,5 +44,9 @@ public class Pawn {
 
     public void setPlayerId(int playerId) {
         this.playerId = playerId;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 }

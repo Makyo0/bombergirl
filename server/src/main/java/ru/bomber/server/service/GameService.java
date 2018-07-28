@@ -10,6 +10,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import ru.bomber.server.game.Pawn;
 import ru.bomber.server.game.GameSession;
+import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.Topic;
 import ru.bomber.server.network.Player;
 import java.io.IOException;
@@ -34,10 +35,8 @@ public class GameService {
 
 
     public static String start(String gameId) {
-        GameThread gameThread = new GameThread();
-        gameThread.setGameId(gameId);
-        Thread newGameThread = new Thread(gameThread, "gameThread:" + gameId);
-        newGameThread.start();
+        Thread gameThread = new Thread(new GameThread(gameId), "gameThread:" + gameId);
+        gameThread.start();
         return gameId;
     }
 
@@ -88,10 +87,10 @@ public class GameService {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         String gameId = nameValuePairList.get(0).getValue();
         JsonNode message = JsonHelper.getJsonNode(msg.getPayload());
-        String topic = message.findValue("topic").asText();
+        Topic topic = Topic.valueOf(message.findValue("topic").asText());
         //Message message = JsonHelper.fromJson(msg.getPayload(), Message.class);
-        if (topic.equals(Topic.MOVE.toString())) {
-            String direction = message.findValue("direction").asText();
+        if (topic == Topic.MOVE) {
+            Direction direction = Direction.valueOf(message.findValue("direction").asText());
             int pawnPlayerId = Integer.valueOf(session.getId()); //по реализации сервера sessionId == playerId
             ConcurrentHashMap<Integer, Object> replica = getReplica(gameId);
             for (Object object:
@@ -99,7 +98,18 @@ public class GameService {
                 if (object.getClass().equals(Pawn.class)) {
                     Pawn pawn = (Pawn) object;
                     if (pawn.getPlayerId() == pawnPlayerId) {
-                        pawn.setX(pawn.getX() + 1);
+                        if (direction == Direction.UP) {
+                            pawn.setY(pawn.getY() + 1);
+                        }
+                        if (direction == Direction.DOWN) {
+                            pawn.setY(pawn.getY() - 1);
+                        }
+                        if (direction == Direction.RIGHT) {
+                            pawn.setX(pawn.getX() + 1);
+                        }
+                        if (direction == Direction.LEFT) {
+                            pawn.setX(pawn.getX() - 1);
+                        }
                     }
                 }
             }
