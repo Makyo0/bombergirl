@@ -37,11 +37,11 @@ public class MmController {
         if (ConnectionQueue.getInstance().isEmpty()) {
             System.out.println("Registering new player " + name);
             ConnectionQueue.getInstance().offer(new Connection(name));
-            Thread startThread = new Thread(new StartThread());
-            startThread.start();
             System.out.println("Requesting to create new game");
             gameId = MmRequester.create(MAX_PLAYER_IN_GAME).body().string();
             System.out.println("Response with gameId " + gameId);
+            Thread startThread = new Thread(new StartThread(gameId));
+            startThread.start();
         } else {
             System.out.println("Registering new player " + name);
             ConnectionQueue.getInstance().offer(new Connection(name));

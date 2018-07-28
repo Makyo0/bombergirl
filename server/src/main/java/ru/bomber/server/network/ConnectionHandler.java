@@ -19,15 +19,12 @@ import java.util.List;
 @Scope("singleton")
 public class ConnectionHandler extends TextWebSocketHandler implements WebSocketHandler {
 
-    @Autowired
-    GameService gameService;
-
     @Override
     public synchronized void afterConnectionEstablished(final WebSocketSession session) throws Exception {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         int gameId = Integer.parseInt(nameValuePairList.get(0).getValue());
         Player newPlayer = new Player(gameId, session);
-        gameService.connect(gameId, newPlayer);
+        GameService.connect(gameId, newPlayer);
         super.afterConnectionEstablished(session);
     }
 
@@ -39,6 +36,6 @@ public class ConnectionHandler extends TextWebSocketHandler implements WebSocket
     @Override
     protected synchronized void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println("Recieved message from " + session + " message:" + message.getPayload());
-        gameService.handleMessage(session, message);
+        GameService.handleMessage(session, message);
     }
 }
