@@ -40,5 +40,15 @@ public class GameController {
         return ResponseEntity.ok().body(startedGameId); //return gameId
     }
 
+    @RequestMapping(
+            path = "/checkstatus",
+            method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public synchronized ResponseEntity<String> checkStatus(@RequestParam("gameId") String gameId) {
+        String numberOfPlayers = String.valueOf(GameService.getGameConnections(Integer.valueOf(gameId)).size());
+        return ResponseEntity.ok().body(numberOfPlayers); //return number of players in game
+    }
+
 }
 

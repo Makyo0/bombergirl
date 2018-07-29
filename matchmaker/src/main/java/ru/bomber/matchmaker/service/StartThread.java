@@ -5,6 +5,7 @@ public class StartThread implements Runnable {
     private String gameId;
     private int counter;
     public static final int MAX_PLAYER_IN_GAME = 2;
+    public boolean isRunning = true;
 
     public StartThread(String gameId) {
         this.gameId = gameId;
@@ -14,23 +15,25 @@ public class StartThread implements Runnable {
     public void run() {
 
         try {
-            while (counter < 1000) {
-                if (ConnectionQueue.getInstance().size() >= MAX_PLAYER_IN_GAME) {
+            while (counter < 1000 && isRunning) {
+                int numberOfPlayersJoined = Integer.valueOf(MmRequester.checkStatus(gameId).body().string());
+                if (numberOfPlayersJoined == MAX_PLAYER_IN_GAME) {
                     synchronized (this) {
                         MmRequester.start(gameId);
                         System.out.println("Starting game " + gameId);
                         for (int i = 0; i < MAX_PLAYER_IN_GAME; i++) {
                             ConnectionQueue.getInstance().take();
                         }
-                        Thread.currentThread().interrupt();
+                        isRunning = false;
                     }
                 } else {
                     Thread.sleep(100);
                     counter++;
                 }
             }
-            System.out.println("Not enough players");
-            Thread.currentThread().interrupt();
+            if (isRunning) {
+                System.out.println("Not enough players");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -34,7 +34,7 @@ public class MmRequester {
         return client.newCall(request).execute();
     }
 
-    public static Response checkStatus(int gameId) throws IOException {
+    public static Response checkStatus(String gameId) throws IOException {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         Request request = new Request.Builder()
                 .post(RequestBody.create(mediaType, "gameId=" + gameId))
