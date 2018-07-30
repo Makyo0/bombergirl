@@ -81,16 +81,20 @@ Game.prototype.gc = function (gameObjects) {
         // Ящики же и бонусы живут между двумя репликами, в которых они присутствуют
         // Если они были присланны в реплике в первый раз, то они появляются
         // Если же второй раз, то удаляются
-        [this.tiles, this.bonuses].forEach(function (it) {
-            var i = it.length;
-            while (i--) {
-                if (obj.id === it[i].id) {
-                    it[i].remove();
-                    it.splice(i, 1);
-                    wasDeleted = true;
-                }
-            }
-        });
+        //
+        // ***На данный момент эта оптимизация отключена.***
+        // ***Все объекты рисуются только, если присутствуют в реплике.***
+        //
+        // [this.tiles, this.bonuses].forEach(function (it) {
+        //     var i = it.length;
+        //     while (i--) {
+        //         if (obj.id === it[i].id) {
+        //             it[i].remove();
+        //             it.splice(i, 1);
+        //             wasDeleted = true;
+        //         }
+        //     }
+        // });
 
         // здесь мы добавляем обычгые объекты, кстати условие на проверку Pawn вроде лишнее, так как в начале мы
         // проверяем на равенство
