@@ -31,7 +31,7 @@ public class MmController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> join(@RequestBody String data) throws IOException {
-// дописать момент приджойна, как передать gameid обратно во фронт
+
         String name = data.split("=")[1];
 
         if (ConnectionQueue.getInstance().isEmpty()) {

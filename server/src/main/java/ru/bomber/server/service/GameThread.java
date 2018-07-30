@@ -66,7 +66,7 @@ public class GameThread implements Runnable {
                     if (object instanceof Pawn) {
                         ((Pawn) object).setDirection("");
                     }
-                    //using loop to check bomb's status
+                    //using object loop to check bomb's status
                     if (object instanceof Bomb) {
                         if (((Bomb) object).getLifetime() <= 0) {
                             replica.remove(((Bomb) object).getId());
