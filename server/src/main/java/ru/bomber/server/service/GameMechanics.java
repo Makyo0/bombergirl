@@ -25,7 +25,7 @@ public class GameMechanics {
 
     public void initGame(String gameId) {
         System.out.println("Starting new game");
-        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 10);
+        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 40);
         pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
         Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 90);
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
@@ -34,7 +34,7 @@ public class GameMechanics {
         replica.put(replicaIdGenerator.getAndIncrement(), pawn1);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn2);
         replica.put(replicaIdGenerator.getAndIncrement(), wood);
-        for (int i = 0; i <= 96; i = i + 32) {
+        for (int i = 0; i <= 544; i = i + 32) {
             Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
             replica.put(replicaIdGenerator.getAndIncrement(), wall);
         }
