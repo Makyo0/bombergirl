@@ -1,14 +1,11 @@
 package ru.bomber.server.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
 import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
-import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
 
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -32,13 +29,15 @@ public class GameMechanics {
         pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
         Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 90);
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
-        Wall wall = new Wall(objectIdGenerator.getAndIncrement(), 500, 500);
         Wood wood = new Wood(objectIdGenerator.getAndIncrement(), 400, 400);
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn1);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn2);
-        replica.put(replicaIdGenerator.getAndIncrement(), wall);
         replica.put(replicaIdGenerator.getAndIncrement(), wood);
+        for (int i = 0; i <= 96; i = i + 32) {
+            Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
+            replica.put(replicaIdGenerator.getAndIncrement(), wall);
+        }
     }
 
     public synchronized void doMechanics() {

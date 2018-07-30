@@ -12,6 +12,7 @@ var Tile = function (id, position, material) {
     this.bmp.y = position.y;
 
     gGameEngine.stage.addChild(this.bmp);
+    gGameEngine.game.tiles.push(this);
 };
 
 Tile.prototype.remove = function () {
