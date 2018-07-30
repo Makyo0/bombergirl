@@ -28,9 +28,9 @@ public class GameMechanics {
 
     public void initGame(String gameId) {
         System.out.println("Starting new game");
-        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), new Point(20, 10));
+        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 10);
         pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
-        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), new Point(20, 90));
+        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 90);
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn1);

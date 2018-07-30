@@ -3,15 +3,14 @@ package ru.bomber.server.game;
 
 // Вид объекта в реплике
 // {"id":1,"type":"Bomb","position":{"y":20,"x":10}}
-public class Bomb implements Tickable {
-    private int id;
-    private String type = "Bomb";
-    private Point position;
+public class Bomb extends Positionable implements Tickable {
+
     private long lifetime = 100;
 
     public Bomb(int id, int y, int x) {
         this.id = id;
         this.position = new Point(y, x);
+        this.type = "Bomb";
     }
 
     @Override
@@ -23,7 +22,4 @@ public class Bomb implements Tickable {
         return lifetime;
     }
 
-    public int getId() {
-        return id;
-    }
 }
