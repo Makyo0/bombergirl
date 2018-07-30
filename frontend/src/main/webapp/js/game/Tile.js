@@ -3,7 +3,6 @@
 // {"id":7,"type":"Wood","position":{"y":20,"x":10}}
 var Tile = function (id, position, material) {
     this.id = id;
-
     var img = (material === 'Wall')
         ? gGameEngine.asset.tile.wall
         : gGameEngine.asset.tile.wood;
@@ -13,7 +12,6 @@ var Tile = function (id, position, material) {
     this.bmp.y = position.y;
 
     gGameEngine.stage.addChild(this.bmp);
-    gGameEngine.game.tiles.push(this);
 };
 
 Tile.prototype.remove = function () {

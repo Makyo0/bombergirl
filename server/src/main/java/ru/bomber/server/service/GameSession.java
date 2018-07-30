@@ -1,9 +1,10 @@
-package ru.bomber.server.game;
+package ru.bomber.server.service;
 
 import org.springframework.web.socket.WebSocketSession;
 import ru.bomber.server.network.Player;
 import ru.bomber.server.service.GameMechanics;
 
+import javax.validation.constraints.Max;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
