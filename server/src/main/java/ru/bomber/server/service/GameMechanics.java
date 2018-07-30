@@ -1,14 +1,14 @@
 package ru.bomber.server.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import ru.bomber.server.game.Bomb;
-import ru.bomber.server.game.Pawn;
-import ru.bomber.server.game.Point;
-import ru.bomber.server.game.Tickable;
+import org.springframework.web.socket.TextMessage;
+import ru.bomber.server.game.*;
 import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
+import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
 
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -28,13 +28,17 @@ public class GameMechanics {
 
     public void initGame(String gameId) {
         System.out.println("Starting new game");
-        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), new Point(20, 10));
+        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 10);
         pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
-        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), new Point(20, 90));
+        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 90);
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
+        Wall wall = new Wall(objectIdGenerator.getAndIncrement(), 500, 500);
+        Wood wood = new Wood(objectIdGenerator.getAndIncrement(), 400, 400);
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn1);
         replica.put(replicaIdGenerator.getAndIncrement(), pawn2);
+        replica.put(replicaIdGenerator.getAndIncrement(), wall);
+        replica.put(replicaIdGenerator.getAndIncrement(), wood);
     }
 
     public synchronized void doMechanics() {

@@ -25,7 +25,6 @@ public class GameThread implements Runnable {
     @Override
     public void run() {
 
-        ConcurrentHashMap<Integer, Object> replica;
         GameMechanics gameMechanics = GameService.getGameMechanics(gameId);
         gameMechanics.initGame(gameId);
 
@@ -53,7 +52,7 @@ public class GameThread implements Runnable {
 
             if (running) {
                 gameMechanics.doMechanics();
-                replica = GameService.getReplica(gameId);
+                ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
                 Collection replicaToSend = replica.values();
                 Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
                 TextMessage message = new TextMessage(JsonHelper.toJson(msg));
