@@ -9,23 +9,28 @@ import ru.bomber.server.message.Topic;
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class GameThread implements Runnable {
+public class GameThread extends Thread {
 
     private String gameId;
-    boolean running = true;
+    private boolean running = true;
+    private GameMechanics gameMechanics;
 
     public GameThread(String gameId) {
         this.gameId = gameId;
+        gameMechanics = new GameMechanics(gameId);
     }
 
     public void setGameId(String gameId) {
         this.gameId = gameId;
     }
 
+    public GameMechanics getGameMechanics() {
+        return gameMechanics;
+    }
+
     @Override
     public void run() {
 
-        GameMechanics gameMechanics = GameService.getGameMechanics(gameId);
         gameMechanics.initGame(gameId);
 
         double FPS = 60.0;
@@ -46,7 +51,6 @@ public class GameThread implements Runnable {
                         gameMechanics.getTickables()) {
                     tickable.tick((long) delta);
                 }
-                //Tickable tick();
                 delta--;
             }
 
@@ -56,7 +60,7 @@ public class GameThread implements Runnable {
                 Collection replicaToSend = replica.values();
                 Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
                 TextMessage message = new TextMessage(JsonHelper.toJson(msg));
-//                System.out.println("Sending message " + message.getPayload());
+                System.out.println("Sending message " + message.getPayload() + "to gameId=" + gameId);
                 GameService.broadcast(Integer.parseInt(gameId), message);
                 //object check
                 for (Object object :
