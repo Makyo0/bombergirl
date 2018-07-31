@@ -11,7 +11,7 @@ public class GameSession {
     private int gameId;
     private int numOfPlayers;
     private ArrayList<Player> playersList = new ArrayList<>();
-    private static ConcurrentHashMap<Integer, Object> replica = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, Object> replica = new ConcurrentHashMap<>();
 
     public GameSession(int newGameId, int numOfPlayers) {
         this.gameId = newGameId;
