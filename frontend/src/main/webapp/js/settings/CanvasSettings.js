@@ -1,8 +1,8 @@
 var CanvasSettings = function () {
     this.tileSize = 32;
     this.tiles = {
-        w: 27,
-        h: 17
+        w: 17,
+        h: 13
     };
     this.size = {
         w: this.tileSize * this.tiles.w,

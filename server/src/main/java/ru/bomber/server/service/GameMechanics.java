@@ -12,31 +12,30 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameMechanics {
 
-    private int gameId;
+    private String gameId;
 
-    private static AtomicInteger objectIdGenerator = new AtomicInteger();
-    private static AtomicInteger replicaIdGenerator = new AtomicInteger();
+    private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Tickable> tickables = new LinkedBlockingQueue<>();
 
-    public GameMechanics(int gameId) {
+    public GameMechanics(String gameId) {
         this.gameId = gameId;
     }
 
     public void initGame(String gameId) {
         System.out.println("Starting new game");
         Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 40);
-        pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
         Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 20, 90);
+        pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
-        Wood wood = new Wood(objectIdGenerator.getAndIncrement(), 400, 400);
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
-        replica.put(replicaIdGenerator.getAndIncrement(), pawn1);
-        replica.put(replicaIdGenerator.getAndIncrement(), pawn2);
-        replica.put(replicaIdGenerator.getAndIncrement(), wood);
-        for (int i = 0; i <= 544; i = i + 32) {
-            Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
-            replica.put(replicaIdGenerator.getAndIncrement(), wall);
+        replica.put(pawn1.getPlayerId(), pawn1);
+        replica.put(pawn2.getPlayerId(), pawn2);
+        for (int i = 0; i <= 384; i = i + 32) {
+            Wall leftWall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
+            Wall rightWall = new Wall(objectIdGenerator.getAndIncrement(), i, 512);
+            replica.put(leftWall.getId(), leftWall);
+            replica.put(rightWall.getId(), rightWall);
         }
     }
 
@@ -84,7 +83,7 @@ public class GameMechanics {
                             Pawn pawn = (Pawn) object;
                             if (pawn.getPlayerId() == pawnPlayerId) {
                                 Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
-                                replica.put(replicaIdGenerator.getAndIncrement(), bomb);
+                                replica.put(bomb.getId(), bomb);
                                 tickables.offer(bomb);
                             }
                         }

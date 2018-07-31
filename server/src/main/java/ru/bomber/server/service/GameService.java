@@ -1,6 +1,5 @@
 package ru.bomber.server.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.springframework.web.socket.TextMessage;
@@ -13,11 +12,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class GameService {
 
     private static final ConcurrentHashMap<Integer, GameSession> gameMap = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<Integer, GameThread> gameThreads = new ConcurrentHashMap<>();
     private static AtomicInteger gameIdGenerator = new AtomicInteger();
 
     public static String create(int numOfPlayers) {
@@ -30,7 +31,8 @@ public class GameService {
 
 
     public static String start(String gameId) {
-        Thread gameThread = new Thread(new GameThread(gameId), "gameThread:" + gameId);
+        GameThread gameThread = new GameThread(gameId);
+        gameThreads.put(Integer.valueOf(gameId), gameThread);
         gameThread.start();
         return gameId;
     }
@@ -75,20 +77,13 @@ public class GameService {
         getGameConnections(gameId).forEach(session -> send(session, msg));
     }
 
-    public static GameMechanics getGameMechanics(String gameId) {
-        return gameMap.get(Integer.valueOf(gameId)).getGameMechanics();
-    }
-
-
     //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"PLANT_BOMB","data":{}}
     //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"MOVE","data":{"direction":"UP"}}
     public static void handleMessage(WebSocketSession session, TextMessage msg) {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         String gameId = nameValuePairList.get(0).getValue();
-        JsonNode message = JsonHelper.getJsonNode(msg.getPayload());
         InputQueueMessage inputQueueMessage = new InputQueueMessage(session.getId(), msg.getPayload()); //по реализации сервера sessionId == playerId
-        getGameMechanics(gameId).getInputQueue().offer(inputQueueMessage);
-
+        getInputQueue(gameId).offer(inputQueueMessage);
     }
 
     public static ConcurrentHashMap<Integer, Object> getReplica(String gameId) {
@@ -97,5 +92,9 @@ public class GameService {
 
     public static ConcurrentHashMap<Integer, GameSession> getGameMap() {
         return gameMap;
+    }
+
+    public static LinkedBlockingQueue<InputQueueMessage> getInputQueue(String gameId) {
+        return gameThreads.get(Integer.valueOf(gameId)).getGameMechanics().getInputQueue();
     }
 }

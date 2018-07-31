@@ -13,8 +13,7 @@ public class GameSession {
     private int gameId;
     private int numOfPlayers;
     private ArrayList<Player> playersList = new ArrayList<>();
-    private ConcurrentHashMap<Integer, Object> replica = new ConcurrentHashMap<>();
-    private GameMechanics gameMechanics;
+    private static ConcurrentHashMap<Integer, Object> replica = new ConcurrentHashMap<>();
 
     public GameSession(int newGameId, int numOfPlayers) {
         this.gameId = newGameId;
@@ -50,10 +49,4 @@ public class GameSession {
         return replica;
     }
 
-    public GameMechanics getGameMechanics() {
-        if (gameMechanics == null) {
-            gameMechanics = new GameMechanics(gameId);
-        }
-        return gameMechanics;
-    }
 }
