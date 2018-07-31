@@ -2,19 +2,24 @@ package ru.bomber.server.game;
 
 public class Bar {
 
-    private Point barPoint1;
-    private Point barPoint2;
+    public final int leftX;
+    public final int rightX;
+    public final int bottomY;
+    public final int topY;
 
-    public Bar(int y1, int x1, int y2, int x2) {
-        this.barPoint1 = new Point(y1, x1);
-        this.barPoint2 = new Point(y2, x2);
+    public Bar(int x1, int x2, int y1, int y2) {
+        leftX = Math.min(x1, x2);
+        bottomY = Math.min(y1, y2);
+        rightX = Math.max(x1, x2);
+        topY = Math.max(y1, y2);
     }
 
-    public Point getBarPoint1() {
-        return barPoint1;
-    }
+    public boolean collideCheck(Bar barToCheck) {
 
-    public Point getBarPoint2() {
-        return barPoint2;
+        boolean x1 = ((barToCheck.leftX >= leftX) && (barToCheck.leftX <= rightX));
+        boolean x2 = ((barToCheck.rightX >= leftX) && (barToCheck.rightX <= rightX));
+        boolean y1 = ((barToCheck.bottomY >= bottomY) && (barToCheck.bottomY <= topY));
+        boolean y2 = ((barToCheck.topY >= bottomY) && (barToCheck.topY <= topY));
+        return (x1 || x2) && (y1 || y2);
     }
 }
