@@ -13,42 +13,56 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class GameMechanics {
 
     private String gameId;
-
     private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Tickable> tickables = new LinkedBlockingQueue<>();
-    private final static int tileSize = 32;
+    private final static int tileSize = 29;
+    private final static int playerSize = 24;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
     }
 
     public void initGame(String gameId) {
-        System.out.println("Starting new game");
-        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 50, 40);
-        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 50, 90);
-        pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
-        pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
-        replica.put(pawn1.getId(), pawn1);
-        replica.put(pawn2.getId(), pawn2);
 
-        for (int i = 0; i <= 384; i += tileSize) {
+        System.out.println("Starting new game");
+
+        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+
+        //generating left/right borders of game field
+        for (int i = 0; i <= 384; i += 32) {
             Wall leftWall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
             Wall rightWall = new Wall(objectIdGenerator.getAndIncrement(), i, 512);
             replica.put(leftWall.getId(), leftWall);
             replica.put(rightWall.getId(), rightWall);
         }
 
-        for (int i = 32; i <= 480; i += tileSize) {
+        //generating top/bottom borders of game field
+        for (int i = 32; i <= 480; i += 32) {
             Wall topWall = new Wall(objectIdGenerator.getAndIncrement(), 0, i);
             Wall bottomWall = new Wall(objectIdGenerator.getAndIncrement(), 384, i);
             replica.put(topWall.getId(), topWall);
             replica.put(bottomWall.getId(), bottomWall);
         }
+
+        //generating walls across game field
+        for (int i = 64; i <= 480; i += 32 * 2) {
+            for (int j = 64; j < 480; j += 32 * 2) {
+                Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, j);
+                replica.put(wall.getId(), wall);
+            }
+        }
+
+        //generating player Pawn's
+        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 30, 33);
+        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 352, 33);
+        pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
+        pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
+        replica.put(pawn1.getId(), pawn1);
+        replica.put(pawn2.getId(), pawn2);
     }
 
-    public synchronized void doMechanics() {
+    public void doMechanics() {
         while (!inputQueue.isEmpty()) {
             try {
                 InputQueueMessage queueMessage = inputQueue.take();
@@ -65,7 +79,7 @@ public class GameMechanics {
                             if (pawn.getPlayerId() == pawnPlayerId) {
 
                                 if (direction == Direction.UP) {
-                                    if (!isColliding(pawn.getY() + tileSize, pawn.getX())) {
+                                    if (!isColliding(pawn.getY() + 1, pawn.getX())) {
                                         pawn.setY(pawn.getY() + 1);
                                         pawn.setDirection(Direction.UP.toString());
                                     }
@@ -77,7 +91,7 @@ public class GameMechanics {
                                     }
                                 }
                                 if (direction == Direction.RIGHT) {
-                                    if (!isColliding(pawn.getY(), pawn.getX() + tileSize)) {
+                                    if (!isColliding(pawn.getY(), pawn.getX() + 1)) {
                                         pawn.setX(pawn.getX() + 1);
                                         pawn.setDirection(Direction.RIGHT.toString());
                                     }
@@ -93,7 +107,8 @@ public class GameMechanics {
                     }
                 }
                 if (topic == Topic.PLANT_BOMB) {
-                    int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId()); //по реализации сервера sessionId == playerId
+                    //by server implementation sessionId == playerId
+                    int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
                     ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
                     for (Object object :
                             replica.values()) {
@@ -113,22 +128,18 @@ public class GameMechanics {
         }
     }
 
-    public boolean isColliding(int y, int x) {
-        Point pointToCheck = new Point(y, x);
+    public boolean isColliding(int pawnY, int pawnX) {
+
+        Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
+
         for (Object object :
                 GameService.getReplica(gameId).values()) {
 
             if (object instanceof Wall || object instanceof Wood) {
-
                 Positionable obstacle = (Positionable) object;
-
-                for (int i = obstacle.getX(); i <= obstacle.getX() + tileSize; i++) {
-
-                    for (int j = obstacle.getY(); j <= obstacle.getY() + tileSize; j++) {
-                        Point point = new Point(j, i);
-                        if (pointToCheck.equals(point)) return true;
-                    }
-                }
+                Bar obstacleBar = new Bar(obstacle.getX(), obstacle.getX() + tileSize,
+                        obstacle.getY(), obstacle.getY() + tileSize);
+                if (obstacleBar.collideCheck(playerBar)) return true;
             }
         }
         return false;
