@@ -60,7 +60,7 @@ public class GameThread extends Thread {
                 Collection replicaToSend = replica.values();
                 Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
                 TextMessage message = new TextMessage(JsonHelper.toJson(msg));
-                System.out.println("Sending message " + message.getPayload() + "to gameId=" + gameId);
+                //System.out.println("Sending message " + message.getPayload() + "to gameId=" + gameId);
                 GameService.broadcast(Integer.parseInt(gameId), message);
                 //object check
                 for (Object object :

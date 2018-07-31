@@ -17,6 +17,7 @@ public class GameMechanics {
     private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Tickable> tickables = new LinkedBlockingQueue<>();
+    private final static int tileSize = 32;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
@@ -32,14 +33,14 @@ public class GameMechanics {
         replica.put(pawn1.getId(), pawn1);
         replica.put(pawn2.getId(), pawn2);
 
-        for (int i = 0; i <= 384; i += 32) {
+        for (int i = 0; i <= 384; i += tileSize) {
             Wall leftWall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
             Wall rightWall = new Wall(objectIdGenerator.getAndIncrement(), i, 512);
             replica.put(leftWall.getId(), leftWall);
             replica.put(rightWall.getId(), rightWall);
         }
 
-        for (int i = 32; i <= 480; i += 32) {
+        for (int i = 32; i <= 480; i += tileSize) {
             Wall topWall = new Wall(objectIdGenerator.getAndIncrement(), 0, i);
             Wall bottomWall = new Wall(objectIdGenerator.getAndIncrement(), 384, i);
             replica.put(topWall.getId(), topWall);
@@ -64,7 +65,7 @@ public class GameMechanics {
                             if (pawn.getPlayerId() == pawnPlayerId) {
 
                                 if (direction == Direction.UP) {
-                                    if (!isColliding(pawn.getY() + 32, pawn.getX())) {
+                                    if (!isColliding(pawn.getY() + tileSize, pawn.getX())) {
                                         pawn.setY(pawn.getY() + 1);
                                         pawn.setDirection(Direction.UP.toString());
                                     }
@@ -76,7 +77,7 @@ public class GameMechanics {
                                     }
                                 }
                                 if (direction == Direction.RIGHT) {
-                                    if (!isColliding(pawn.getY(), pawn.getX() + 32)) {
+                                    if (!isColliding(pawn.getY(), pawn.getX() + tileSize)) {
                                         pawn.setX(pawn.getX() + 1);
                                         pawn.setDirection(Direction.RIGHT.toString());
                                     }
@@ -120,12 +121,10 @@ public class GameMechanics {
             if (object instanceof Wall || object instanceof Wood) {
 
                 Positionable obstacle = (Positionable) object;
-                Bar obstacleBar = new Bar(obstacle.getY(), obstacle.getX(),
-                        obstacle.getY() + 32, obstacle.getX() + 32);
 
-                for (int i = obstacleBar.getBarPoint1().getX(); i <= obstacleBar.getBarPoint2().getX(); i++) {
+                for (int i = obstacle.getX(); i <= obstacle.getX() + tileSize; i++) {
 
-                    for (int j = obstacleBar.getBarPoint1().getY(); j <= obstacleBar.getBarPoint2().getY(); j++) {
+                    for (int j = obstacle.getY(); j <= obstacle.getY() + tileSize; j++) {
                         Point point = new Point(j, i);
                         if (pointToCheck.equals(point)) return true;
                     }
