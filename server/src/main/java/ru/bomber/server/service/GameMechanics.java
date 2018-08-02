@@ -159,10 +159,7 @@ public class GameMechanics {
     }
 
     public void tick() {
-        for (Tickable tickable :
-                getTickable()) {
-            tickable.tick();
-        }
+        tickable.forEach(Tickable::tick);
         doMechanics();
         //object check
         for (Object object :
