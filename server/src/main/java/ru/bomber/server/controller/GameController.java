@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.bomber.server.service.GameService;
 
-
 @Controller
 @RequestMapping("/game")
 public class GameController {
