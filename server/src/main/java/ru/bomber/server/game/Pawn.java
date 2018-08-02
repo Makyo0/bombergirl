@@ -2,7 +2,7 @@ package ru.bomber.server.game;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Pawn extends Positionable {
+public class Pawn extends Positionable implements Tickable {
 
     @JsonIgnore
     private int playerId;
@@ -26,5 +26,10 @@ public class Pawn extends Positionable {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public void tick() {
+        direction = "";
     }
 }
