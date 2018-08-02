@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a5641f1d-5d1c-44cc-975c-ea31616fbcad" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Positionable.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Positionable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Tickable.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Tickable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/InputQueueMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/InputQueueMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" afterDir="false" />
+    <list default="true" id="a5641f1d-5d1c-44cc-975c-ea31616fbcad" name="Default" comment="better game loop implemented + better direction binding of Pawn's">
+      <change beforePath="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/util/JsonHelper.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -40,16 +31,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Direction.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/Direction.java">
+      <file leaf-file-name="GameThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+            <state relative-caret-position="425">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+              <folding>
+                <marker date="1533223530839" expanded="true" signature="723:1220" ph="{...}" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-200">
@@ -58,85 +52,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pawn.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Pawn.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bomb.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java">
+      <file leaf-file-name="MmController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="34">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-              <folding>
-                <element signature="e#481#482#0" expanded="true" />
-                <element signature="e#507#508#0" expanded="true" />
-              </folding>
+              <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bar.java">
+      <file leaf-file-name="Connection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/model/Connection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="31" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+            <state relative-caret-position="119">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wood.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wood.java">
+      <file leaf-file-name="JsonHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="68">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Wall.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wall.java">
+      <file leaf-file-name="MatchMakerApplication.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/MatchMakerApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="102">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tickable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Tickable.java">
+      <file leaf-file-name="ConnectionQueue.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/ConnectionQueue.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="34">
+              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MmRequester.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Positionable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Positionable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-              <folding>
-                <element signature="e#545#546#0" expanded="true" />
-                <element signature="e#583#584#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Point.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Point.java">
+      <file leaf-file-name="StartThread.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="15" selection-start-line="15" selection-end-line="15" />
-              <folding>
-                <element signature="e#246#247#0" expanded="true" />
-              </folding>
+              <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -1083,15 +1057,11 @@
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/InputQueue.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/InputQueueMessage.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/GameSession.java" />
-        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java" />
-        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java" />
-        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wall.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wood.java" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Tile.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js" />
-        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/model/Connection.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Point.java" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Player.js" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bar.java" />
@@ -1107,6 +1077,12 @@
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Positionable.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java" />
+        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java" />
+        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/model/Connection.java" />
+        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/ConnectionQueue.java" />
+        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java" />
+        <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java" />
       </list>
     </option>
   </component>
@@ -1276,6 +1252,16 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
@@ -1489,7 +1475,7 @@
       <workItem from="1532771024358" duration="29370000" />
       <workItem from="1532859913445" duration="33952000" />
       <workItem from="1533220636714" duration="5364000" />
-      <workItem from="1533227050776" duration="2960000" />
+      <workItem from="1533227050776" duration="3281000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1532771246226</created>
@@ -1631,11 +1617,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533224071089</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="better game loop implemented + better direction binding of Pawn's">
+      <created>1533237106443</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1533237106443</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="71646000" />
+    <option name="totallyTimeSpent" value="71967000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1648,6 +1641,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -1669,12 +1663,12 @@
       <window_info id="Image Layers" order="5" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" weight="0.32921174" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info active="true" anchor="bottom" id="Run Dashboard" order="7" visible="true" weight="0.36939722" />
+      <window_info anchor="bottom" id="Run Dashboard" order="7" weight="0.36939722" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32921174" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49754903" visible="true" weight="0.2579365" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49754903" visible="true" weight="0.2579365" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="6" sideWeight="0.502451" side_tool="true" weight="0.25396827" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -1728,13 +1722,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.0.4.RELEASE/49f1c19070743b0446782f38a3fb5b6a4f0e4a74/spring-context-5.0.4.RELEASE-sources.jar!/org/springframework/context/annotation/Scope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="581">
-          <caret line="73" column="76" lean-forward="true" selection-start-line="73" selection-start-column="76" selection-end-line="73" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/ServerApplication.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -1778,13 +1765,6 @@
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionPool.java" />
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Broker.java" />
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/tick/Ticker.java" />
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/MatchMakerApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/external/easeljs-NEXT.combined.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-186">
@@ -1859,34 +1839,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="34" column="57" lean-forward="true" selection-start-line="34" selection-start-column="57" selection-end-line="34" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/ConnectionQueue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="13" column="5" selection-start-line="9" selection-start-column="4" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" selection-start-line="20" selection-end-line="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-51">
@@ -1898,23 +1850,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-116">
           <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/model/Connection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-          <folding>
-            <marker date="1533223530839" expanded="true" signature="723:1220" ph="{...}" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1932,13 +1867,6 @@
           <folding>
             <element signature="method#getPlayerSessions#0;class#GameSession#0" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
@@ -2076,6 +2004,72 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-200">
           <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="12" column="27" selection-start-line="12" selection-start-column="27" selection-end-line="12" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/model/Connection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/MatchMakerApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/ConnectionQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <marker date="1533223530839" expanded="true" signature="723:1220" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/util/JsonHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="14" column="19" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
         </state>
       </provider>
     </entry>
