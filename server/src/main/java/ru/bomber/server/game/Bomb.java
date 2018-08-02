@@ -4,9 +4,9 @@ package ru.bomber.server.game;
 public class Bomb extends Positionable implements Tickable {
 
     // Lifetime = number of tick's in loop. Value in seconds is lifetime * (1 sec / FPS) = 1.6 sec
-    private long lifetime = 100;
+    private int lifetime = 100;
 
-    public Bomb(int id, int y, int x) {
+    public Bomb(int id, double y, double x) {
         this.id = id;
         this.position = new Point(y, x);
         this.type = "Bomb";
@@ -17,7 +17,7 @@ public class Bomb extends Positionable implements Tickable {
         lifetime--;
     }
 
-    public long getLifetime() {
+    public int getLifetime() {
         return lifetime;
     }
 

@@ -4,27 +4,27 @@ import java.util.Objects;
 
 public class Point {
 
-    private int y;
-    private int x;
+    private double y;
+    private double x;
 
-    public Point(int y, int x) {
+    public Point(double y, double x) {
         this.y = y;
         this.x = x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.x = x;
     }
 

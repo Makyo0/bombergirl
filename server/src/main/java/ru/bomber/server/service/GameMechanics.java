@@ -102,26 +102,26 @@ public class GameMechanics {
                         if (pawn.getPlayerId() == pawnPlayerId) {
 
                             if (direction == Direction.UP) {
-                                if (!isColliding(pawn.getY() + 1, pawn.getX())) {
-                                    pawn.setY(pawn.getY() + 1);
+                                if (!isColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
+                                    pawn.setY(pawn.getY() + pawn.getVelocity());
                                     pawn.setDirection(Direction.UP.toString());
                                 }
                             }
                             if (direction == Direction.DOWN) {
-                                if (!isColliding(pawn.getY() - 1, pawn.getX())) {
-                                    pawn.setY(pawn.getY() - 1);
+                                if (!isColliding(pawn.getY() - pawn.getVelocity(), pawn.getX())) {
+                                    pawn.setY(pawn.getY() - pawn.getVelocity());
                                     pawn.setDirection(Direction.DOWN.toString());
                                 }
                             }
                             if (direction == Direction.RIGHT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() + 1)) {
-                                    pawn.setX(pawn.getX() + 1);
+                                if (!isColliding(pawn.getY(), pawn.getX() + pawn.getVelocity())) {
+                                    pawn.setX(pawn.getX() + pawn.getVelocity());
                                     pawn.setDirection(Direction.RIGHT.toString());
                                 }
                             }
                             if (direction == Direction.LEFT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() - 1)) {
-                                    pawn.setX(pawn.getX() - 1);
+                                if (!isColliding(pawn.getY(), pawn.getX() - pawn.getVelocity())) {
+                                    pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
                                 }
                             }
@@ -153,7 +153,7 @@ public class GameMechanics {
         }
     }
 
-    public boolean isColliding(int pawnY, int pawnX) {
+    public boolean isColliding(double pawnY, double pawnX) {
 
         Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
 

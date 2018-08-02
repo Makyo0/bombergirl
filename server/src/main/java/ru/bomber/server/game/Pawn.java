@@ -9,8 +9,9 @@ public class Pawn extends Positionable implements Tickable {
 
     private boolean alive = true;
     private String direction = "";
+    private double velocity = 1.0;
 
-    public Pawn(int id, int y, int x) {
+    public Pawn(int id, double y, double x) {
         this.id = id;
         this.position = new Point(y, x);
         this.type = "Pawn";
@@ -26,6 +27,14 @@ public class Pawn extends Positionable implements Tickable {
 
     public void setDirection(String direction) {
         this.direction = direction;
+    }
+
+    public double getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
     }
 
     @Override
