@@ -1,7 +1,6 @@
 package ru.bomber.matchmaker.service;
 
 import ru.bomber.matchmaker.model.Connection;
-
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 

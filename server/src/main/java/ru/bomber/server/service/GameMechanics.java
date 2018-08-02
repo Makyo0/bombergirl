@@ -7,7 +7,6 @@ import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
 import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
-
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -69,75 +68,88 @@ public class GameMechanics {
 
     public void doMechanics() {
         while (!inputQueue.isEmpty()) {
-            try {
-                InputQueueMessage queueMessage = inputQueue.take();
-                JsonNode message = JsonHelper.getJsonNode(queueMessage.getPayload());
-                Topic topic = Topic.valueOf(message.findValue("topic").asText());
-
-                if (topic == Topic.MOVE) {
-
-                    Direction direction = Direction.valueOf(message.findValue("direction").asText());
-                    int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
-                    ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
-
-                    for (Object object :
-                            replica.values()) {
-
-                        if (object instanceof Pawn) {
-                            Pawn pawn = (Pawn) object;
-
-                            if (pawn.getPlayerId() == pawnPlayerId) {
-
-                                if (direction == Direction.UP) {
-                                    if (!isColliding(pawn.getY() + 1, pawn.getX())) {
-                                        pawn.setY(pawn.getY() + 1);
-                                        pawn.setDirection(Direction.UP.toString());
-                                    }
-                                }
-                                if (direction == Direction.DOWN) {
-                                    if (!isColliding(pawn.getY() - 1, pawn.getX())) {
-                                        pawn.setY(pawn.getY() - 1);
-                                        pawn.setDirection(Direction.DOWN.toString());
-                                    }
-                                }
-                                if (direction == Direction.RIGHT) {
-                                    if (!isColliding(pawn.getY(), pawn.getX() + 1)) {
-                                        pawn.setX(pawn.getX() + 1);
-                                        pawn.setDirection(Direction.RIGHT.toString());
-                                    }
-                                }
-                                if (direction == Direction.LEFT) {
-                                    if (!isColliding(pawn.getY(), pawn.getX() - 1)) {
-                                        pawn.setX(pawn.getX() - 1);
-                                        pawn.setDirection(Direction.LEFT.toString());
-                                    }
-                                }
-                            }
-                        }
-                    }
+            handleInputQueue();
+        }
+        for (Object object :
+                GameService.getReplica(gameId).values()) {
+            //using object iteration to check bomb's status
+            if (object instanceof Bomb) {
+                if (((Bomb) object).getLifetime() <= 0) {
+                    GameService.getReplica(gameId).remove(((Bomb) object).getId());
                 }
-                if (topic == Topic.PLANT_BOMB) {
-                    //by server implementation sessionId == playerId
-                    int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
-                    ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
-
-                    for (Object object :
-                            replica.values()) {
-
-                        if (object instanceof Pawn) {
-                            Pawn pawn = (Pawn) object;
-
-                            if (pawn.getPlayerId() == pawnPlayerId) {
-                                Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
-                                replica.put(bomb.getId(), bomb);
-                                tickable.offer(bomb);
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+        }
+    }
+
+    public void handleInputQueue() {
+        try {
+            InputQueueMessage queueMessage = inputQueue.take();
+            JsonNode message = JsonHelper.getJsonNode(queueMessage.getPayload());
+            Topic topic = Topic.valueOf(message.findValue("topic").asText());
+
+            if (topic == Topic.MOVE) {
+
+                Direction direction = Direction.valueOf(message.findValue("direction").asText());
+                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+
+                for (Object object :
+                        replica.values()) {
+
+                    if (object instanceof Pawn) {
+                        Pawn pawn = (Pawn) object;
+
+                        if (pawn.getPlayerId() == pawnPlayerId) {
+
+                            if (direction == Direction.UP) {
+                                if (!isColliding(pawn.getY() + 1, pawn.getX())) {
+                                    pawn.setY(pawn.getY() + 1);
+                                    pawn.setDirection(Direction.UP.toString());
+                                }
+                            }
+                            if (direction == Direction.DOWN) {
+                                if (!isColliding(pawn.getY() - 1, pawn.getX())) {
+                                    pawn.setY(pawn.getY() - 1);
+                                    pawn.setDirection(Direction.DOWN.toString());
+                                }
+                            }
+                            if (direction == Direction.RIGHT) {
+                                if (!isColliding(pawn.getY(), pawn.getX() + 1)) {
+                                    pawn.setX(pawn.getX() + 1);
+                                    pawn.setDirection(Direction.RIGHT.toString());
+                                }
+                            }
+                            if (direction == Direction.LEFT) {
+                                if (!isColliding(pawn.getY(), pawn.getX() - 1)) {
+                                    pawn.setX(pawn.getX() - 1);
+                                    pawn.setDirection(Direction.LEFT.toString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (topic == Topic.PLANT_BOMB) {
+                //by server implementation sessionId == playerId
+                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
+
+                for (Object object :
+                        replica.values()) {
+
+                    if (object instanceof Pawn) {
+                        Pawn pawn = (Pawn) object;
+
+                        if (pawn.getPlayerId() == pawnPlayerId) {
+                            Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
+                            replica.put(bomb.getId(), bomb);
+                            tickable.offer(bomb);
+                        }
+                    }
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -159,21 +171,10 @@ public class GameMechanics {
     }
 
     public void tick() {
-        for (Tickable tickable :
-                getTickable()) {
-            tickable.tick();
-        }
+        tickable.forEach(Tickable::tick);
         doMechanics();
         //object check
-        for (Object object :
-                GameService.getReplica(gameId).values()) {
-            //using object iteration to check bomb's status
-            if (object instanceof Bomb) {
-                if (((Bomb) object).getLifetime() <= 0) {
-                    GameService.getReplica(gameId).remove(((Bomb) object).getId());
-                }
-            }
-        }
+
     }
 
     public void render() {
@@ -186,9 +187,5 @@ public class GameMechanics {
 
     public LinkedBlockingQueue<InputQueueMessage> getInputQueue() {
         return inputQueue;
-    }
-
-    public LinkedBlockingQueue<Tickable> getTickable() {
-        return tickable;
     }
 }

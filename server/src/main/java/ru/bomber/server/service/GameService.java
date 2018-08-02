@@ -6,7 +6,6 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import ru.bomber.server.message.InputQueueMessage;
 import ru.bomber.server.network.Player;
-
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -77,8 +76,6 @@ public class GameService {
         getGameConnections(gameId).forEach(session -> send(session, msg));
     }
 
-    //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"PLANT_BOMB","data":{}}
-    //Recieved message from StandardWebSocketSession[id=0, uri=/game/connect?gameId=0] message:{"topic":"MOVE","data":{"direction":"UP"}}
     public static void handleMessage(WebSocketSession session, TextMessage msg) {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         String gameId = nameValuePairList.get(0).getValue();

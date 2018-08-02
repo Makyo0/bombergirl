@@ -1,7 +1,5 @@
 package ru.bomber.server.game;
 
-
-// Вид объекта в реплике
 // {"id":1,"type":"Bomb","position":{"y":20,"x":10}}
 public class Bomb extends Positionable implements Tickable {
 

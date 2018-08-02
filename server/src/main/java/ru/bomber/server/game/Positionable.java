@@ -10,18 +10,6 @@ public abstract class Positionable {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public void setX(int x) {
         this.position.setX(x);
     }

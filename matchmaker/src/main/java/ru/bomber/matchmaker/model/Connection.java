@@ -8,8 +8,6 @@ public class Connection {
         this.name = name;
     }
 
-
-
     @Override
     public String toString() {
         return "Connection{" +

@@ -7,7 +7,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.RequestBody;
 
-
 public class MmRequester {
 
     static final OkHttpClient client = new OkHttpClient();

@@ -12,7 +12,6 @@ import ru.bomber.matchmaker.service.StartThread;
 
 import java.io.IOException;
 
-
 @Controller
 @RequestMapping("/matchmaker")
 public class MmController {
