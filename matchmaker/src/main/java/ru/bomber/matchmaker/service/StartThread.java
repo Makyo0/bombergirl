@@ -4,8 +4,8 @@ public class StartThread implements Runnable {
 
     private String gameId;
     private int counter;
-    public static final int MAX_PLAYER_IN_GAME = 2;
-    public boolean isRunning = true;
+    private static final int MAX_PLAYER_IN_GAME = 2;
+    private boolean isRunning = true;
 
     public StartThread(String gameId) {
         this.gameId = gameId;
