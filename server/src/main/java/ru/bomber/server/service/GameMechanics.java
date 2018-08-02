@@ -1,11 +1,14 @@
 package ru.bomber.server.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
 import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
+import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
 
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,7 +18,7 @@ public class GameMechanics {
     private String gameId;
     private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
-    private LinkedBlockingQueue<Tickable> tickables = new LinkedBlockingQueue<>();
+    private LinkedBlockingQueue<Tickable> tickable = new LinkedBlockingQueue<>();
     private final static int tileSize = 29;
     private final static int playerSize = 24;
 
@@ -60,6 +63,8 @@ public class GameMechanics {
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
         replica.put(pawn1.getId(), pawn1);
         replica.put(pawn2.getId(), pawn2);
+        tickable.offer(pawn1);
+        tickable.offer(pawn2);
     }
 
     public void doMechanics() {
@@ -68,14 +73,19 @@ public class GameMechanics {
                 InputQueueMessage queueMessage = inputQueue.take();
                 JsonNode message = JsonHelper.getJsonNode(queueMessage.getPayload());
                 Topic topic = Topic.valueOf(message.findValue("topic").asText());
+
                 if (topic == Topic.MOVE) {
+
                     Direction direction = Direction.valueOf(message.findValue("direction").asText());
                     int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
                     ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
+
                     for (Object object :
                             replica.values()) {
+
                         if (object instanceof Pawn) {
                             Pawn pawn = (Pawn) object;
+
                             if (pawn.getPlayerId() == pawnPlayerId) {
 
                                 if (direction == Direction.UP) {
@@ -110,14 +120,17 @@ public class GameMechanics {
                     //by server implementation sessionId == playerId
                     int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
                     ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
+
                     for (Object object :
                             replica.values()) {
+
                         if (object instanceof Pawn) {
                             Pawn pawn = (Pawn) object;
+
                             if (pawn.getPlayerId() == pawnPlayerId) {
                                 Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
                                 replica.put(bomb.getId(), bomb);
-                                tickables.offer(bomb);
+                                tickable.offer(bomb);
                             }
                         }
                     }
@@ -145,11 +158,37 @@ public class GameMechanics {
         return false;
     }
 
+    public void tick() {
+        for (Tickable tickable :
+                getTickable()) {
+            tickable.tick();
+        }
+        doMechanics();
+        //object check
+        for (Object object :
+                GameService.getReplica(gameId).values()) {
+            //using object iteration to check bomb's status
+            if (object instanceof Bomb) {
+                if (((Bomb) object).getLifetime() <= 0) {
+                    GameService.getReplica(gameId).remove(((Bomb) object).getId());
+                }
+            }
+        }
+    }
+
+    public void render() {
+        Collection replicaToSend = GameService.getReplica(gameId).values();
+        Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
+        TextMessage message = new TextMessage(JsonHelper.toJson(msg));
+        //System.out.println("Sending message " + message.getPayload() + "to gameId=" + gameId);
+        GameService.broadcast(Integer.parseInt(gameId), message);
+    }
+
     public LinkedBlockingQueue<InputQueueMessage> getInputQueue() {
         return inputQueue;
     }
 
-    public LinkedBlockingQueue<Tickable> getTickables() {
-        return tickables;
+    public LinkedBlockingQueue<Tickable> getTickable() {
+        return tickable;
     }
 }
