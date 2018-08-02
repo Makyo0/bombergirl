@@ -8196,7 +8196,8 @@ this.createjs = this.createjs||{};
 		if (this.dispatchEvent("drawstart", false, true) === false) { return; }
 		createjs.DisplayObject._snapToPixelEnabled = this.snapToPixelEnabled;
 		var r = this.drawRect, ctx = this.canvas.getContext("2d");
-		ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
 		if (this.autoClear) {
 			if (r) { ctx.clearRect(r.x, r.y, r.width, r.height); }
 			else { ctx.clearRect(0, 0, this.canvas.width+1, this.canvas.height+1); }

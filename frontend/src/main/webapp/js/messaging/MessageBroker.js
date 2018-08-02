@@ -46,8 +46,8 @@ MessageBroker.prototype.handlePawn = function(obj) {
     var position = gMessageBroker.mirrorPosition(obj.position);
     var direction = obj.direction;
     if (player) {
-        player.bmp.x = position.x;
-        player.bmp.y = position.y;
+        player.bmp.x = Math.round(position.x);
+        player.bmp.y = Math.round(position.y);
         player.direction = direction;
     } else {
         player = new Player(obj.id, position);
