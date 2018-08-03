@@ -54,7 +54,7 @@ public class GameService {
 
     public static void disconnect(int gameId, WebSocketSession session) {
         ArrayList<Player> playersList = gameMap.get(gameId).getPlayersList();
-        playersList.removeIf(player -> player.getPlayerId() == Integer.valueOf(session.getId()));
+        playersList.removeIf(player -> player.getPlayerId().equals(session.getId()));
         System.out.println("Game:" + gameId + gameMap.get(gameId).getPlayersList());
     }
 

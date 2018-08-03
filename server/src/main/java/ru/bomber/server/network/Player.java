@@ -4,12 +4,12 @@ import org.springframework.web.socket.WebSocketSession;
 
 public class Player {
 
-    private int playerId;
+    private String playerId;
     private int gameId;
     private WebSocketSession webSocketSession;
 
     public Player(int gameId, WebSocketSession session) {
-        this.playerId = Integer.valueOf(session.getId());
+        this.playerId = session.getId();
         this.gameId = gameId;
         this.webSocketSession = session;
     }
@@ -18,7 +18,7 @@ public class Player {
         return webSocketSession;
     }
 
-    public int getPlayerId() {
+    public String getPlayerId() {
         return playerId;
     }
 }

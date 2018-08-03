@@ -90,7 +90,7 @@ public class GameMechanics {
             if (topic == Topic.MOVE) {
 
                 Direction direction = Direction.valueOf(message.findValue("direction").asText());
-                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                String pawnPlayerId = queueMessage.getPlayerId();
                 ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
                 for (Object object :
@@ -99,7 +99,7 @@ public class GameMechanics {
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
 
-                        if (pawn.getPlayerId() == pawnPlayerId) {
+                        if (pawn.getPlayerId().equals(pawnPlayerId)) {
 
                             if (direction == Direction.UP) {
                                 if (!isColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
@@ -131,7 +131,7 @@ public class GameMechanics {
             }
             if (topic == Topic.PLANT_BOMB) {
                 //by server implementation sessionId == playerId
-                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                String pawnPlayerId = queueMessage.getPlayerId();
                 ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
 
                 for (Object object :
@@ -140,7 +140,7 @@ public class GameMechanics {
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
 
-                        if (pawn.getPlayerId() == pawnPlayerId) {
+                        if (pawn.getPlayerId().equals(pawnPlayerId)) {
                             Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
                             replica.put(bomb.getId(), bomb);
                             tickable.offer(bomb);

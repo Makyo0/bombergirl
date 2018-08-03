@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Pawn extends Positionable implements Tickable {
 
     @JsonIgnore
-    private int playerId;
+    private String playerId;
 
     private boolean alive = true;
     private String direction = "";
@@ -17,11 +17,11 @@ public class Pawn extends Positionable implements Tickable {
         this.type = "Pawn";
     }
 
-    public int getPlayerId() {
+    public String getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(String playerId) {
         this.playerId = playerId;
     }
 
