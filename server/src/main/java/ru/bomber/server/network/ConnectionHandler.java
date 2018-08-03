@@ -21,13 +21,15 @@ public class ConnectionHandler extends TextWebSocketHandler implements WebSocket
     public synchronized void afterConnectionEstablished(final WebSocketSession session) throws Exception {
         List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
         int gameId = Integer.parseInt(nameValuePairList.get(0).getValue());
-        Player newPlayer = new Player(gameId, session);
-        GameService.connect(gameId, newPlayer);
+        GameService.connect(gameId, session);
         super.afterConnectionEstablished(session);
     }
 
     @Override
     public synchronized void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+        List<NameValuePair> nameValuePairList = URLEncodedUtils.parse(session.getUri(), StandardCharsets.UTF_8);
+        int gameId = Integer.parseInt(nameValuePairList.get(0).getValue());
+        GameService.disconnect(gameId, session);
         super.afterConnectionClosed(session, closeStatus);
     }
 
