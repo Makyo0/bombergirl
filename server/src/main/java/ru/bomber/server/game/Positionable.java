@@ -10,19 +10,19 @@ public abstract class Positionable {
         return id;
     }
 
-    public void setX(int x) {
+    public void setX(double x) {
         this.position.setX(x);
     }
 
-    public int getX() {
+    public double getX() {
         return position.getX();
     }
 
-    public int getY() {
+    public double getY() {
         return position.getY();
     }
 
-    public void setY(int y) {
+    public void setY(double y) {
         this.position.setY(y);
     }
 }

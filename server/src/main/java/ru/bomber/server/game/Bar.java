@@ -2,12 +2,12 @@ package ru.bomber.server.game;
 
 public class Bar {
 
-    public final int leftX;
-    public final int rightX;
-    public final int bottomY;
-    public final int topY;
+    public final double leftX;
+    public final double rightX;
+    public final double bottomY;
+    public final double topY;
 
-    public Bar(int x1, int x2, int y1, int y2) {
+    public Bar(double x1, double x2, double y1, double y2) {
         leftX = Math.min(x1, x2);
         bottomY = Math.min(y1, y2);
         rightX = Math.max(x1, x2);

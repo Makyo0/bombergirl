@@ -3,9 +3,8 @@ package ru.bomber.matchmaker.service;
 public class StartThread implements Runnable {
 
     private String gameId;
-    private int counter;
-    public static final int MAX_PLAYER_IN_GAME = 2;
-    public boolean isRunning = true;
+    private static final int MAX_PLAYER_IN_GAME = 2;
+    private boolean isRunning = true;
 
     public StartThread(String gameId) {
         this.gameId = gameId;
@@ -15,24 +14,24 @@ public class StartThread implements Runnable {
     public void run() {
 
         try {
-            while (counter < 1000 && isRunning) {
+            long startTime = System.currentTimeMillis();
+            long currentTime = System.currentTimeMillis();
+            while ((currentTime - startTime) < 60000 && isRunning) {
                 int numberOfPlayersJoined = Integer.valueOf(MmRequester.checkStatus(gameId).body().string());
                 if (numberOfPlayersJoined == MAX_PLAYER_IN_GAME) {
                     synchronized (this) {
                         MmRequester.start(gameId);
                         System.out.println("Starting game " + gameId);
-                        for (int i = 0; i < MAX_PLAYER_IN_GAME; i++) {
-                            ConnectionQueue.getInstance().take();
-                        }
+                        ConnectionQueue.getInstance().clear();
                         isRunning = false;
                     }
                 } else {
-                    Thread.sleep(100);
-                    counter++;
+                    currentTime = System.currentTimeMillis();
                 }
             }
             if (isRunning) {
-                System.out.println("Not enough players");
+                System.out.println("Not enough players connected, please try again later");
+                ConnectionQueue.getInstance().clear();
             }
         } catch (Exception e) {
             e.printStackTrace();

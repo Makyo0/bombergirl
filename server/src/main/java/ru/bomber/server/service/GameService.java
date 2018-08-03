@@ -45,9 +45,16 @@ public class GameService {
         }
     }
 
-    public static void connect(int gameId, Player player) {
-        gameMap.get(gameId).addPlayer(player);
-        System.out.println("PlayerId=" + player.getPlayerId() + " connected to gameId=" + gameId);
+    public static void connect(int gameId, WebSocketSession session) {
+        Player newPlayer = new Player(gameId, session);
+        gameMap.get(gameId).addPlayer(newPlayer);
+        System.out.println("PlayerId=" + newPlayer.getPlayerId() + " connected to gameId=" + gameId);
+        System.out.println("Game:" + gameId + gameMap.get(gameId).getPlayersList());
+    }
+
+    public static void disconnect(int gameId, WebSocketSession session) {
+        ArrayList<Player> playersList = gameMap.get(gameId).getPlayersList();
+        playersList.removeIf(player -> player.getPlayerId().equals(session.getId()));
         System.out.println("Game:" + gameId + gameMap.get(gameId).getPlayersList());
     }
 

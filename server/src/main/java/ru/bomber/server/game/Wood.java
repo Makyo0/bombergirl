@@ -4,7 +4,7 @@ package ru.bomber.server.game;
 
 public class Wood extends Positionable {
 
-    public Wood(int id, int y, int x) {
+    public Wood(int id, double y, double x) {
         this.id = id;
         this.position = new Point(y, x);
         this.type = "Wood";

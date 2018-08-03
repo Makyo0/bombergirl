@@ -90,7 +90,7 @@ public class GameMechanics {
             if (topic == Topic.MOVE) {
 
                 Direction direction = Direction.valueOf(message.findValue("direction").asText());
-                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                String pawnPlayerId = queueMessage.getPlayerId();
                 ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
                 for (Object object :
@@ -99,29 +99,29 @@ public class GameMechanics {
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
 
-                        if (pawn.getPlayerId() == pawnPlayerId) {
+                        if (pawn.getPlayerId().equals(pawnPlayerId)) {
 
                             if (direction == Direction.UP) {
-                                if (!isColliding(pawn.getY() + 1, pawn.getX())) {
-                                    pawn.setY(pawn.getY() + 1);
+                                if (!isColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
+                                    pawn.setY(pawn.getY() + pawn.getVelocity());
                                     pawn.setDirection(Direction.UP.toString());
                                 }
                             }
                             if (direction == Direction.DOWN) {
-                                if (!isColliding(pawn.getY() - 1, pawn.getX())) {
-                                    pawn.setY(pawn.getY() - 1);
+                                if (!isColliding(pawn.getY() - pawn.getVelocity(), pawn.getX())) {
+                                    pawn.setY(pawn.getY() - pawn.getVelocity());
                                     pawn.setDirection(Direction.DOWN.toString());
                                 }
                             }
                             if (direction == Direction.RIGHT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() + 1)) {
-                                    pawn.setX(pawn.getX() + 1);
+                                if (!isColliding(pawn.getY(), pawn.getX() + pawn.getVelocity())) {
+                                    pawn.setX(pawn.getX() + pawn.getVelocity());
                                     pawn.setDirection(Direction.RIGHT.toString());
                                 }
                             }
                             if (direction == Direction.LEFT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() - 1)) {
-                                    pawn.setX(pawn.getX() - 1);
+                                if (!isColliding(pawn.getY(), pawn.getX() - pawn.getVelocity())) {
+                                    pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
                                 }
                             }
@@ -131,7 +131,7 @@ public class GameMechanics {
             }
             if (topic == Topic.PLANT_BOMB) {
                 //by server implementation sessionId == playerId
-                int pawnPlayerId = Integer.valueOf(queueMessage.getPlayerId());
+                String pawnPlayerId = queueMessage.getPlayerId();
                 ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
 
                 for (Object object :
@@ -140,7 +140,7 @@ public class GameMechanics {
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
 
-                        if (pawn.getPlayerId() == pawnPlayerId) {
+                        if (pawn.getPlayerId().equals(pawnPlayerId)) {
                             Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
                             replica.put(bomb.getId(), bomb);
                             tickable.offer(bomb);
@@ -153,7 +153,7 @@ public class GameMechanics {
         }
     }
 
-    public boolean isColliding(int pawnY, int pawnX) {
+    public boolean isColliding(double pawnY, double pawnX) {
 
         Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
 

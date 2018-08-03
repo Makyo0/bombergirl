@@ -1,17 +1,15 @@
 package ru.bomber.server.network;
 
 import org.springframework.web.socket.WebSocketSession;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Player {
 
-    private static AtomicInteger atomicInteger = new AtomicInteger();
-    private int playerId;
+    private String playerId;
     private int gameId;
     private WebSocketSession webSocketSession;
 
     public Player(int gameId, WebSocketSession session) {
-        this.playerId = atomicInteger.getAndIncrement();
+        this.playerId = session.getId();
         this.gameId = gameId;
         this.webSocketSession = session;
     }
@@ -20,7 +18,7 @@ public class Player {
         return webSocketSession;
     }
 
-    public int getPlayerId() {
+    public String getPlayerId() {
         return playerId;
     }
 }
