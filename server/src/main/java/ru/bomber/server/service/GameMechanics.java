@@ -7,6 +7,7 @@ import ru.bomber.server.message.Direction;
 import ru.bomber.server.message.InputQueueMessage;
 import ru.bomber.server.message.Message;
 import ru.bomber.server.message.Topic;
+
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -71,14 +72,93 @@ public class GameMechanics {
         while (!inputQueue.isEmpty()) {
             handleInputQueue();
         }
-        for (Object object :
-                GameService.getReplica(gameId).values()) {
-            //using object iteration to check bomb's status
-            if (object instanceof Bomb) {
-                if (((Bomb) object).getLifetime() <= 0) {
-                    GameService.getReplica(gameId).remove(((Bomb) object).getId());
+        checkTickable();
+    }
+
+    public void checkTickable() {
+        for (Tickable object :
+                tickable) {
+            //check fire status
+            if (object instanceof Fire) {
+                if (((Fire) object).getLifetime() == 0) {
+                    GameService.getReplica(gameId).remove(((Fire) object).getId());
+                    tickable.remove(object);
                 }
             }
+            //check bomb's status
+            if (object instanceof Bomb) {
+                if (((Bomb) object).getLifetime() == 0) {
+                    explodeBomb((Bomb) object);
+                }
+            }
+        }
+    }
+
+    public void explodeBomb(Bomb bomb) {
+        int bombStrength = 1;
+        int bombY = (int) bomb.getY();
+        int bombX = (int) bomb.getX();
+        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+        replica.remove(bomb.getId());
+        tickable.remove(bomb);
+
+        for (int i = bombX; i <= bombX + renderTileSize * bombStrength; i += renderTileSize) {
+            Fire fire = new Fire(objectIdGenerator.getAndIncrement(), bombY, i);
+            placeFire(fire);
+        }
+        for (int i = bombX - renderTileSize; i >= bombX - renderTileSize * bombStrength; i -= renderTileSize) {
+            Fire fire = new Fire(objectIdGenerator.getAndIncrement(), bombY, i);
+            placeFire(fire);
+        }
+        for (int i = bombY + renderTileSize; i <= bombY + renderTileSize * bombStrength; i += renderTileSize) {
+            Fire fire = new Fire(objectIdGenerator.getAndIncrement(), i, bombX);
+            placeFire(fire);
+        }
+        for (int i = bombY - renderTileSize; i >= bombY - renderTileSize * bombStrength; i -= renderTileSize) {
+            Fire fire = new Fire(objectIdGenerator.getAndIncrement(), i, bombX);
+            placeFire(fire);
+        }
+    }
+
+    public void placeFire(Fire fire) {
+        boolean isCollided = false;
+        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+        for (Object object :
+                replica.values()) {
+            if (object instanceof Wood) {
+                if (isFireColliding(fire, object)) {
+                    replica.replace(((Positionable) object).getId(), fire);
+                    tickable.offer(fire);
+                    isCollided = true;
+                    break;
+                }
+            }
+            if (object instanceof Pawn) {
+                if (isFireColliding(fire, object)) {
+                    GameService.gameOver(Integer.valueOf(gameId), ((Pawn) object).getPlayerId());
+                    replica.replace(((Positionable) object).getId(), fire);
+                    tickable.offer(fire);
+                    isCollided = true;
+                    break;
+                }
+            }
+            if (object instanceof Wall) {
+                if (isFireColliding(fire, object)) {
+                    isCollided = true;
+                    break;
+                }
+            }
+            if (object instanceof Bomb) {
+                if (isFireColliding(fire, object)) {
+                    explodeBomb((Bomb) object);
+                    isCollided = true;
+                    break;
+                }
+            }
+        }
+        if (!isCollided) {
+            replica.put(objectIdGenerator.getAndIncrement(), fire);
+            tickable.offer(fire);
         }
     }
 
@@ -103,25 +183,25 @@ public class GameMechanics {
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
 
                             if (direction == Direction.UP) {
-                                if (!isColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
+                                if (!isPlayerColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
                                     pawn.setY(pawn.getY() + pawn.getVelocity());
                                     pawn.setDirection(Direction.UP.toString());
                                 }
                             }
                             if (direction == Direction.DOWN) {
-                                if (!isColliding(pawn.getY() - pawn.getVelocity(), pawn.getX())) {
+                                if (!isPlayerColliding(pawn.getY() - pawn.getVelocity(), pawn.getX())) {
                                     pawn.setY(pawn.getY() - pawn.getVelocity());
                                     pawn.setDirection(Direction.DOWN.toString());
                                 }
                             }
                             if (direction == Direction.RIGHT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() + pawn.getVelocity())) {
+                                if (!isPlayerColliding(pawn.getY(), pawn.getX() + pawn.getVelocity())) {
                                     pawn.setX(pawn.getX() + pawn.getVelocity());
                                     pawn.setDirection(Direction.RIGHT.toString());
                                 }
                             }
                             if (direction == Direction.LEFT) {
-                                if (!isColliding(pawn.getY(), pawn.getX() - pawn.getVelocity())) {
+                                if (!isPlayerColliding(pawn.getY(), pawn.getX() - pawn.getVelocity())) {
                                     pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
                                 }
@@ -157,13 +237,12 @@ public class GameMechanics {
         }
     }
 
-    public boolean isColliding(double pawnY, double pawnX) {
+    public boolean isPlayerColliding(double pawnY, double pawnX) {
 
         Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
 
         for (Object object :
                 GameService.getReplica(gameId).values()) {
-
             if (object instanceof Wall || object instanceof Wood) {
                 Positionable obstacle = (Positionable) object;
                 Bar obstacleBar = new Bar(obstacle.getX(), obstacle.getX() + impassableTileSize,
@@ -172,6 +251,15 @@ public class GameMechanics {
             }
         }
         return false;
+    }
+
+    public boolean isFireColliding(Fire fire, Object object) {
+        Positionable objectToCheck = (Positionable) object;
+        Bar fireBar = new Bar(fire.getX(), fire.getX() + impassableTileSize,
+                fire.getY(), fire.getY() + impassableTileSize);
+        Bar objectBar = new Bar(objectToCheck.getX(), objectToCheck.getX() + impassableTileSize,
+                objectToCheck.getY(), objectToCheck.getY() + impassableTileSize);
+        return fireBar.collideCheck(objectBar);
     }
 
     public void tick() {
