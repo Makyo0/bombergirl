@@ -49,12 +49,28 @@ public class GameMechanics {
             replica.put(bottomWall.getId(), bottomWall);
         }
 
-        //generating walls across game field
+        //generating walls and boxes across game field
         for (int i = renderTileSize * 2; i <= renderTileSize * 15; i += renderTileSize * 2) {
             for (int j = renderTileSize * 2; j < renderTileSize * 15; j += renderTileSize * 2) {
                 Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, j);
                 replica.put(wall.getId(), wall);
+                Wood wood = new Wood(objectIdGenerator.getAndIncrement(), i - renderTileSize, j);
+                replica.put(wood.getId(), wood);
             }
+        }
+
+        for (int i = renderTileSize * 3; i <= renderTileSize * 14; i += renderTileSize * 2) {
+            for (int j = renderTileSize; j < renderTileSize * 12; j += renderTileSize) {
+                Wood wood = new Wood(objectIdGenerator.getAndIncrement(), j, i);
+                replica.put(wood.getId(), wood);
+            }
+        }
+
+        for (int i = renderTileSize * 4; i <= renderTileSize * 8; i += renderTileSize) {
+            Wood leftWood = new Wood(objectIdGenerator.getAndIncrement(), i, renderTileSize);
+            replica.put(leftWood.getId(), leftWood);
+            Wood rightWood = new Wood(objectIdGenerator.getAndIncrement(), i, renderTileSize * 15);
+            replica.put(rightWood.getId(), rightWood);
         }
 
         //generating player Pawn's
