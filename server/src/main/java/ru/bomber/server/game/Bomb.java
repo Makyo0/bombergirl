@@ -3,8 +3,8 @@ package ru.bomber.server.game;
 // {"id":1,"type":"Bomb","position":{"y":20,"x":10}}
 public class Bomb extends Positionable implements Tickable {
 
-    // Lifetime = number of tick's in loop. Value in seconds is lifetime * (1 sec / FPS) = 1.6 sec
-    private int lifetime = 100;
+    // Lifetime = number of tick's in loop. Value in seconds is lifetime / 60 = 2 sec
+    private int lifetime = 120;
 
     public Bomb(int id, double y, double x) {
         this.id = id;

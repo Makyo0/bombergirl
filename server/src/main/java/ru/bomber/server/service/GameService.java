@@ -5,6 +5,8 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import ru.bomber.server.message.InputQueueMessage;
+import ru.bomber.server.message.Message;
+import ru.bomber.server.message.Topic;
 import ru.bomber.server.network.Player;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -36,6 +38,17 @@ public class GameService {
         return gameId;
     }
 
+    public static void gameOver(int gameId, String playerId) {
+        Player player = gameMap.get(gameId).getPlayersList()
+                .stream()
+                .filter(p -> p.getPlayerId().equals(playerId))
+                .findFirst()
+                .get();
+        TextMessage message = new TextMessage(JsonHelper.toJson(new Message(Topic.GAME_OVER, "")));
+        send(player.getWebSocketSession(), message);
+        disconnect(gameId, player.getWebSocketSession());
+    }
+
     public static void send(WebSocketSession session, TextMessage msg) {
         if (session.isOpen()) {
             try {
@@ -61,22 +74,8 @@ public class GameService {
     public static ArrayList<WebSocketSession> getGameConnections(int gameId) {
         ArrayList<WebSocketSession> sessionList = new ArrayList<>();
         ArrayList<Player> playersList = gameMap.get(gameId).getPlayersList();
-        for (Player player :
-                playersList) {
-            sessionList.add(player.getWebSocketSession());
-        }
+        playersList.forEach(player -> sessionList.add(player.getWebSocketSession()));
         return sessionList;
-    }
-
-    public static void shutdown(int gameId) {
-        gameMap.get(gameId).getPlayerSessions().forEach(session -> {
-            if (session.isOpen()) {
-                try {
-                    session.close();
-                } catch (IOException ignored) {
-                }
-            }
-        });
     }
 
     public static synchronized void broadcast(int gameId, TextMessage msg) {
