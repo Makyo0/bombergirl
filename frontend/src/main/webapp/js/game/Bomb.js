@@ -23,8 +23,8 @@ var Bomb = function (id, position, strength) {
     });
 
     this.bmp = new createjs.Sprite(spriteSheet);
-    this.bmp.x = position.x;
-    this.bmp.y = position.y;
+    this.bmp.x = Math.round(position.x);
+    this.bmp.y = Math.round(position.y);
 
     this.bmp.gotoAndPlay('idle');
     gGameEngine.stage.addChild(this.bmp);

@@ -141,7 +141,10 @@ public class GameMechanics {
                         Pawn pawn = (Pawn) object;
 
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
-                            Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn.getY(), pawn.getX());
+                            //bomb have to be placed in the center of nearest tile
+                            long bombX = Math.round(pawn.getX() / 32) * 32;
+                            long bombY = Math.round(pawn.getY() / 32) * 32;
+                            Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), bombY, bombX);
                             replica.put(bomb.getId(), bomb);
                             tickable.offer(bomb);
                         }

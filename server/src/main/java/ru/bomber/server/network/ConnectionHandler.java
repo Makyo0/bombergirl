@@ -35,7 +35,7 @@ public class ConnectionHandler extends TextWebSocketHandler implements WebSocket
 
     @Override
     protected synchronized void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        System.out.println("Recieved message from " + session + " message:" + message.getPayload());
+        //System.out.println("Recieved message from " + session + " message:" + message.getPayload());
         GameService.handleMessage(session, message);
     }
 }

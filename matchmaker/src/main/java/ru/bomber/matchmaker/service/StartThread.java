@@ -4,10 +4,11 @@ public class StartThread implements Runnable {
 
     private String gameId;
     private static final int MAX_PLAYER_IN_GAME = 2;
-    private boolean isRunning = true;
+    private boolean isRunning;
 
     public StartThread(String gameId) {
         this.gameId = gameId;
+        this.isRunning = true;
     }
 
     @Override
@@ -30,8 +31,10 @@ public class StartThread implements Runnable {
                 }
             }
             if (isRunning) {
-                System.out.println("Not enough players connected, please try again later");
-                ConnectionQueue.getInstance().clear();
+                synchronized (this) {
+                    System.out.println("Not enough players connected, please try again later");
+                    ConnectionQueue.getInstance().clear();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

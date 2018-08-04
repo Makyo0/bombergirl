@@ -2,22 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5641f1d-5d1c-44cc-975c-ea31616fbcad" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bomb.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bomb.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/matchmaker/build/classes/java/main/ru/bomber/matchmaker/service/StartThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/matchmaker/build/classes/java/main/ru/bomber/matchmaker/service/StartThread.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/game/Pawn.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/game/Pawn.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/network/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/network/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/network/ConnectionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/network/ConnectionHandler.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameMechanics.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameMechanics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Pawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Pawn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameThread.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameThread.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -47,22 +47,11 @@
       <file leaf-file-name="GameService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+            <state relative-caret-position="799">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4216#4217#0" expanded="true" />
-                <element signature="e#4246#4247#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MmController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -76,38 +65,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MmRequester.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/MmRequester.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StartThread.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StartThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="173">
-              <caret line="35" column="31" lean-forward="true" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+            <state relative-caret-position="225">
+              <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+              <folding>
+                <element signature="method#StartThread#0;class#StartThread#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectionQueue.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/ConnectionQueue.java">
+      <file leaf-file-name="Bomb.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state relative-caret-position="136">
+              <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameMechanics.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GameMechanics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1560">
-              <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
+            <state relative-caret-position="187">
+              <caret line="143" column="30" lean-forward="true" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ConnectionHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="37" column="10" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -115,10 +116,10 @@
       <file leaf-file-name="GameThread.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="174">
-              <caret line="21" column="41" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="41" />
+            <state relative-caret-position="242">
+              <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
               <folding>
-                <marker date="1533237983617" expanded="true" signature="723:1220" ph="{...}" />
+                <marker date="1533376087043" expanded="true" signature="723:1222" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -129,22 +130,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="102">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameSession.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameSession.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-              <folding>
-                <element signature="e#749#750#0" expanded="true" />
-                <element signature="e#788#789#0" expanded="true" />
-                <element signature="e#837#838#0" expanded="true" />
-                <element signature="e#871#872#0" expanded="true" />
-                <element signature="method#getPlayerSessions#0;class#GameSession#0" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -1111,19 +1096,20 @@
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Point.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wall.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Wood.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Player.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/external/easeljs-NEXT.combined.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/messaging/MessageBroker.js" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Pawn.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameSession.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" />
+        <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bomb.js" />
         <option value="$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" />
       </list>
     </option>
   </component>
@@ -1237,71 +1223,6 @@
               <item name="webapp" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="settings" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
-              <item name="bombergirl" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="matchmaker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="matchmaker" type="462c0819:PsiDirectoryNode" />
-              <item name="service" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="bombergirl" type="b2602c69:ProjectViewProjectNode" />
@@ -1427,9 +1348,9 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1548,7 +1469,8 @@
       <workItem from="1532859913445" duration="33952000" />
       <workItem from="1533220636714" duration="5364000" />
       <workItem from="1533227050776" duration="8995000" />
-      <workItem from="1533307168971" duration="4236000" />
+      <workItem from="1533307168971" duration="5733000" />
+      <workItem from="1533375534892" duration="1191000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1532771246226</created>
@@ -1725,11 +1647,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533309068473</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="matchmaker fix">
+      <created>1533311444214</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1533311444214</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81917000" />
+    <option name="totallyTimeSpent" value="84605000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1742,6 +1671,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -1770,7 +1700,6 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49754903" visible="true" weight="0.2579365" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="6" sideWeight="0.502451" side_tool="true" weight="0.25396827" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.98763525" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info anchor="right" id="Graphical Navigator" order="4" type="SLIDING" weight="0.6825397" />
       <window_info anchor="right" id="Theme Preview" order="3" />
@@ -1780,6 +1709,7 @@
       <window_info anchor="bottom" id="Class Cloud" order="8" type="SLIDING" weight="1.0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.98763525" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
@@ -1817,7 +1747,8 @@
     <MESSAGE value="collide check complete" />
     <MESSAGE value="better game loop implemented + better direction binding of Pawn's" />
     <MESSAGE value="velocity of Pawn's implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="velocity of Pawn's implemented" />
+    <MESSAGE value="matchmaker fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="matchmaker fix" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1832,7 +1763,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="24" />
+      <option name="time" value="25" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -1876,13 +1807,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/util/JsonHelper.java" />
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/Direction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1908,13 +1832,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="48" selection-start-line="9" selection-start-column="48" selection-end-line="9" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
         </state>
       </provider>
     </entry>
@@ -1948,23 +1865,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/favicon.ico">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Fire.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bonus.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bomb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/messaging/ServerProxy.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -2082,13 +1982,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-47">
@@ -2100,13 +1993,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
-          <folding>
-            <element signature="e#749#750#0" expanded="true" />
-            <element signature="e#788#789#0" expanded="true" />
-            <element signature="e#837#838#0" expanded="true" />
-            <element signature="e#871#872#0" expanded="true" />
-            <element signature="method#getPlayerSessions#0;class#GameSession#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2126,7 +2012,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/controller/MmController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68">
+        <state relative-caret-position="102">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
         </state>
       </provider>
@@ -2140,29 +2026,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="59" lean-forward="true" selection-start-line="59" selection-end-line="59" />
+        <state relative-caret-position="799">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4216#4217#0" expanded="true" />
-            <element signature="e#4246#4247#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1560">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="21" column="41" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="41" />
-          <folding>
-            <marker date="1533237983617" expanded="true" signature="723:1220" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2174,10 +2041,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bomb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Fire.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Bonus.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/matchmaker/src/main/java/ru/bomber/matchmaker/service/StartThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="35" column="31" lean-forward="true" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+        <state relative-caret-position="225">
+          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+          <folding>
+            <element signature="method#StartThread#0;class#StartThread#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/JsonHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="37" column="10" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameThread.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="28" column="25" lean-forward="true" selection-start-line="28" selection-start-column="25" selection-end-line="28" selection-end-column="25" />
+          <folding>
+            <marker date="1533376087043" expanded="true" signature="723:1222" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="143" column="30" lean-forward="true" selection-start-line="143" selection-start-column="30" selection-end-line="143" selection-end-column="72" />
         </state>
       </provider>
     </entry>
