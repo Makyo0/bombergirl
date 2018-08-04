@@ -18,8 +18,9 @@ public class GameMechanics {
     private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Tickable> tickable = new LinkedBlockingQueue<>();
-    private final static int tileSize = 29;
+    private final static int impassableTileSize = 29;
     private final static int playerSize = 24;
+    private final static int renderTileSize = 32;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
@@ -32,24 +33,24 @@ public class GameMechanics {
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
         //generating left/right borders of game field
-        for (int i = 0; i <= 384; i += 32) {
+        for (int i = 0; i <= renderTileSize * 12; i += renderTileSize) {
             Wall leftWall = new Wall(objectIdGenerator.getAndIncrement(), i, 0);
-            Wall rightWall = new Wall(objectIdGenerator.getAndIncrement(), i, 512);
+            Wall rightWall = new Wall(objectIdGenerator.getAndIncrement(), i, renderTileSize * 16);
             replica.put(leftWall.getId(), leftWall);
             replica.put(rightWall.getId(), rightWall);
         }
 
         //generating top/bottom borders of game field
-        for (int i = 32; i <= 480; i += 32) {
+        for (int i = renderTileSize; i <= renderTileSize * 15; i += renderTileSize) {
             Wall topWall = new Wall(objectIdGenerator.getAndIncrement(), 0, i);
-            Wall bottomWall = new Wall(objectIdGenerator.getAndIncrement(), 384, i);
+            Wall bottomWall = new Wall(objectIdGenerator.getAndIncrement(), renderTileSize * 12, i);
             replica.put(topWall.getId(), topWall);
             replica.put(bottomWall.getId(), bottomWall);
         }
 
         //generating walls across game field
-        for (int i = 64; i <= 480; i += 32 * 2) {
-            for (int j = 64; j < 480; j += 32 * 2) {
+        for (int i = renderTileSize * 2; i <= renderTileSize * 15; i += renderTileSize * 2) {
+            for (int j = renderTileSize * 2; j < renderTileSize * 15; j += renderTileSize * 2) {
                 Wall wall = new Wall(objectIdGenerator.getAndIncrement(), i, j);
                 replica.put(wall.getId(), wall);
             }
@@ -142,8 +143,8 @@ public class GameMechanics {
 
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
                             //bomb have to be placed in the center of nearest tile
-                            long bombX = Math.round(pawn.getX() / 32) * 32;
-                            long bombY = Math.round(pawn.getY() / 32) * 32;
+                            long bombY = Math.round(pawn.getY() / renderTileSize) * renderTileSize;
+                            long bombX = Math.round(pawn.getX() / renderTileSize) * renderTileSize;
                             Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), bombY, bombX);
                             replica.put(bomb.getId(), bomb);
                             tickable.offer(bomb);
@@ -165,8 +166,8 @@ public class GameMechanics {
 
             if (object instanceof Wall || object instanceof Wood) {
                 Positionable obstacle = (Positionable) object;
-                Bar obstacleBar = new Bar(obstacle.getX(), obstacle.getX() + tileSize,
-                        obstacle.getY(), obstacle.getY() + tileSize);
+                Bar obstacleBar = new Bar(obstacle.getX(), obstacle.getX() + impassableTileSize,
+                        obstacle.getY(), obstacle.getY() + impassableTileSize);
                 if (obstacleBar.collideCheck(playerBar)) return true;
             }
         }
@@ -176,8 +177,6 @@ public class GameMechanics {
     public void tick() {
         tickable.forEach(Tickable::tick);
         doMechanics();
-        //object check
-
     }
 
     public void render() {
