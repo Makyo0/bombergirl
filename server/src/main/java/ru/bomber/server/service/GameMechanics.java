@@ -59,6 +59,7 @@ public class GameMechanics {
             }
         }
 
+        //filling game field with boxes
         for (int i = renderTileSize * 3; i <= renderTileSize * 14; i += renderTileSize * 2) {
             for (int j = renderTileSize; j < renderTileSize * 12; j += renderTileSize) {
                 Wood wood = new Wood(objectIdGenerator.getAndIncrement(), j, i);
@@ -66,6 +67,7 @@ public class GameMechanics {
             }
         }
 
+        //some more boxes to prevent early contact
         for (int i = renderTileSize * 4; i <= renderTileSize * 8; i += renderTileSize) {
             Wood leftWood = new Wood(objectIdGenerator.getAndIncrement(), i, renderTileSize);
             replica.put(leftWood.getId(), leftWood);

@@ -9,7 +9,7 @@ public class Pawn extends Positionable implements Tickable {
 
     private boolean alive = true;
     private String direction = "";
-    private double velocity = 0.75;
+    private double velocity = 1.00;
 
     public Pawn(int id, double y, double x) {
         this.id = id;
