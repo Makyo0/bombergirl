@@ -2,21 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5641f1d-5d1c-44cc-975c-ea31616fbcad" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/Owner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Fire.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.5.1/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Fire.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Fire.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/game/Bomb.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/game/Bomb.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameMechanics.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameMechanics.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameService.class" beforeDir="false" afterPath="$PROJECT_DIR$/server/build/classes/java/main/ru/bomber/server/service/GameService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -43,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GameService.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GameService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1190">
-              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+            <state relative-caret-position="-282">
+              <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
               <folding>
                 <element signature="e#4569#4570#0" expanded="true" />
                 <element signature="e#4599#4600#0" expanded="true" />
@@ -77,31 +71,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConnectionHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/ConnectionHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="37" column="10" selection-start-line="37" selection-start-column="10" selection-end-line="37" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/controller/GameController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-149">
-              <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="GameMechanics.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4">
-              <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
+            <state relative-caret-position="-1135">
+              <caret line="60" column="40" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
               <folding>
-                <element signature="method#initGame#0;class#GameMechanics#0" />
                 <element signature="method#handleInputQueue#0;class#GameMechanics#0" />
                 <element signature="method#isPlayerColliding#0;class#GameMechanics#0" />
                 <element signature="method#isFireColliding#0;class#GameMechanics#0" />
@@ -112,27 +87,49 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GameSession.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameSession.java">
+      <file leaf-file-name="Tile.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Tile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="136">
+              <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
               <folding>
-                <element signature="e#749#750#0" expanded="true" />
-                <element signature="e#788#789#0" expanded="true" />
-                <element signature="e#871#872#0" expanded="true" />
-                <element signature="method#getPlayerSessions#0;class#GameSession#0" />
+                <element signature="n#!!doc" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServerProxy.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/messaging/ServerProxy.js">
+      <file leaf-file-name="GameEngine.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/GameEngine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-506">
-              <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
+            <state relative-caret-position="170">
+              <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Game.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CanvasSettings.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="28" column="3" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InputEngine.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/InputEngine.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1594" />
           </provider>
         </entry>
       </file>
@@ -1112,7 +1109,6 @@
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Player.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/external/easeljs-NEXT.combined.js" />
-        <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" />
         <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/messaging/MessageBroker.js" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameSession.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/network/Player.java" />
@@ -1124,8 +1120,9 @@
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Fire.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Pawn.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/game/Bomb.java" />
-        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" />
         <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java" />
+        <option value="$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java" />
+        <option value="$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js" />
       </list>
     </option>
   </component>
@@ -1144,7 +1141,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="625" />
     <option name="y" value="104" />
     <option name="width" value="516" />
@@ -1539,7 +1536,7 @@
       <workItem from="1533220636714" duration="5364000" />
       <workItem from="1533227050776" duration="8995000" />
       <workItem from="1533307168971" duration="5733000" />
-      <workItem from="1533375534892" duration="16093000" />
+      <workItem from="1533375534892" duration="17310000" />
     </task>
     <task id="LOCAL-00001" summary="123">
       <created>1532771246226</created>
@@ -1744,11 +1741,18 @@
       <option name="project" value="LOCAL" />
       <updated>1533377464614</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="cascade bomb explosion + game over on death">
+      <created>1533391835701</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1533391835701</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99507000" />
+    <option name="totallyTimeSpent" value="100724000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1761,7 +1765,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="54" y="-8" width="1320" height="784" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50079364" side_tool="true" weight="0.36939722" />
@@ -1782,12 +1785,12 @@
       <window_info id="Image Layers" order="5" />
       <window_info anchor="bottom" id="Java Enterprise" order="7" weight="0.32921174" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Run Dashboard" order="7" sideWeight="0.49920633" visible="true" weight="0.36939722" />
+      <window_info active="true" anchor="bottom" id="Run Dashboard" order="7" sideWeight="0.49920633" visible="true" weight="0.36939722" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32921174" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info anchor="bottom" id="Spring" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32921174" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49754903" visible="true" weight="0.2579365" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49754903" visible="true" weight="0.2579365" />
       <window_info anchor="right" id="Bean Validation" order="3" />
       <window_info id="Web" order="6" sideWeight="0.502451" side_tool="true" weight="0.25396827" />
       <window_info anchor="right" id="Gradle" order="3" />
@@ -1839,7 +1842,8 @@
     <MESSAGE value="velocity of Pawn's implemented" />
     <MESSAGE value="matchmaker fix" />
     <MESSAGE value="bomb centered" />
-    <option name="LAST_COMMIT_MESSAGE" value="bomb centered" />
+    <MESSAGE value="cascade bomb explosion + game over on death" />
+    <option name="LAST_COMMIT_MESSAGE" value="cascade bomb explosion + game over on death" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1850,14 +1854,6 @@
           <line>3</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java</url>
-          <line>40</line>
-          <properties class="ru.bomber.server.service.GameService" method="gameOver">
-            <option name="EMULATED" value="true" />
-          </properties>
-          <option name="timeStamp" value="29" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1866,14 +1862,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/presentation/PITCHME.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SECOND">
-          <first_editor />
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/message/InputQueueMessage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1941,20 +1929,10 @@
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/favicon.ico">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="3" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/settings/ClusterSettings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-235" />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/InputEngine.js">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/MatchMaker.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -2113,20 +2091,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-676">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/GameEngine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="55" column="37" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/messaging/MessageBroker.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -2216,12 +2180,22 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-282">
+          <caret line="58" column="5" lean-forward="true" selection-start-line="58" selection-start-column="5" selection-end-line="58" selection-end-column="5" />
+          <folding>
+            <element signature="e#4569#4570#0" expanded="true" />
+            <element signature="e#4599#4600#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameMechanics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4">
-          <caret line="140" column="38" selection-start-line="140" selection-start-column="38" selection-end-line="140" selection-end-column="38" />
+        <state relative-caret-position="-1135">
+          <caret line="60" column="40" selection-start-line="60" selection-start-column="40" selection-end-line="60" selection-end-column="40" />
           <folding>
-            <element signature="method#initGame#0;class#GameMechanics#0" />
             <element signature="method#handleInputQueue#0;class#GameMechanics#0" />
             <element signature="method#isPlayerColliding#0;class#GameMechanics#0" />
             <element signature="method#isFireColliding#0;class#GameMechanics#0" />
@@ -2231,14 +2205,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server/src/main/java/ru/bomber/server/service/GameService.java">
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Tile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1190">
-          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+        <state relative-caret-position="136">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
           <folding>
-            <element signature="e#4569#4570#0" expanded="true" />
-            <element signature="e#4599#4600#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/settings/CanvasSettings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="3" lean-forward="true" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/InputEngine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1594" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/GameEngine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/main/webapp/js/game/Game.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
         </state>
       </provider>
     </entry>

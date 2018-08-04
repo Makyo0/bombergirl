@@ -57,6 +57,8 @@ public class GameMechanics {
             }
         }
 
+        Wood wood = new Wood(objectIdGenerator.getAndIncrement(), 96, 96);
+        replica.put(wood.getId(), wood);
         //generating player Pawn's
         Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 30, 33);
         Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 352, 33);
