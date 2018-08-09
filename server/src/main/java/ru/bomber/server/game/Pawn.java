@@ -9,7 +9,9 @@ public class Pawn extends Positionable implements Tickable {
 
     private boolean alive = true;
     private String direction = "";
-    private double velocity = 0.75;
+    private double velocity = 0.8;
+    private int availableBombs = 1;
+    private int bombRange = 1;
 
     public Pawn(int id, double y, double x) {
         this.id = id;
@@ -35,6 +37,22 @@ public class Pawn extends Positionable implements Tickable {
 
     public void setVelocity(double velocity) {
         this.velocity = velocity;
+    }
+
+    public int getAvailableBombs() {
+        return availableBombs;
+    }
+
+    public void setAvailableBombs(int availableBombs) {
+        this.availableBombs = availableBombs;
+    }
+
+    public int getBombRange() {
+        return bombRange;
+    }
+
+    public void setBombRange(int bombRange) {
+        this.bombRange = bombRange;
     }
 
     @Override
