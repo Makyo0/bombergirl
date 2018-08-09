@@ -66,9 +66,14 @@ public class GameService {
     }
 
     public static void disconnect(int gameId, WebSocketSession session) {
-        ArrayList<Player> playersList = gameMap.get(gameId).getPlayersList();
-        playersList.removeIf(player -> player.getPlayerId().equals(session.getId()));
-        System.out.println("Game:" + gameId + gameMap.get(gameId).getPlayersList());
+        try {
+            ArrayList<Player> playersList = gameMap.get(gameId).getPlayersList();
+            playersList.removeIf(player -> player.getPlayerId().equals(session.getId()));
+            session.close();
+            System.out.println("Game:" + gameId + gameMap.get(gameId).getPlayersList());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ArrayList<WebSocketSession> getGameConnections(int gameId) {
@@ -99,5 +104,15 @@ public class GameService {
 
     public static LinkedBlockingQueue<InputQueueMessage> getInputQueue(String gameId) {
         return gameThreads.get(Integer.valueOf(gameId)).getGameMechanics().getInputQueue();
+    }
+
+    public static void removeGame(int gameId) {
+        System.out.println("Game:" + gameId + " is empty, removing from gameMap and closing gameThread");
+        gameThreads.remove(gameId);
+        gameMap.remove(gameId);
+    }
+
+    public static boolean isGameFinished(int gameId) {
+        return getGameConnections(gameId).size() == 0;
     }
 }

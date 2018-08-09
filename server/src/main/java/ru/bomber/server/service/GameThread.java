@@ -33,12 +33,20 @@ public class GameThread extends Thread {
             delta += (now - lastTime) / ns;
             lastTime = now;
 
-            while (delta >= 1) {
-                gameMechanics.tick();
-                gameMechanics.render();
-                frames++;
-                delta--;
+            if (GameService.isGameFinished(Integer.valueOf(gameId))) {
+                running = false;
+                GameService.removeGame(Integer.valueOf(gameId));
             }
+
+            if (running) {
+                while (delta >= 1) {
+                    gameMechanics.tick();
+                    gameMechanics.render();
+                    frames++;
+                    delta--;
+                }
+            }
+
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
                 //System.out.println("FPS: " + frames);
