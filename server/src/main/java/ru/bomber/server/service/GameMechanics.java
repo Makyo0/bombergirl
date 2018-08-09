@@ -3,10 +3,7 @@ package ru.bomber.server.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
-import ru.bomber.server.message.Direction;
-import ru.bomber.server.message.InputQueueMessage;
-import ru.bomber.server.message.Message;
-import ru.bomber.server.message.Topic;
+import ru.bomber.server.message.*;
 
 import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,7 +18,7 @@ public class GameMechanics {
     private LinkedBlockingQueue<Tickable> tickable = new LinkedBlockingQueue<>();
     private final static int impassableTileSize = 29;
     private final static int playerSize = 24;
-    private final static int renderTileSize = 32;
+    public final static int renderTileSize = 32;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
@@ -32,6 +29,17 @@ public class GameMechanics {
         System.out.println("Starting new game");
 
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+
+        //generating bonuses
+        Bonus bonus = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 3,
+                renderTileSize, BonusType.BOMBS);
+        replica.put(bonus.getId(), bonus);
+        Bonus bonus2 = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 4,
+                renderTileSize, BonusType.SPEED);
+        replica.put(bonus2.getId(), bonus2);
+        Bonus bonus3 = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 5,
+                renderTileSize, BonusType.RANGE);
+        replica.put(bonus3.getId(), bonus3);
 
         //generating left/right borders of game field
         for (int i = 0; i <= renderTileSize * 12; i += renderTileSize) {
@@ -113,32 +121,40 @@ public class GameMechanics {
     }
 
     public void explodeBomb(Bomb bomb) {
-        int bombStrength = 1;
+        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+        int bombRange = bomb.getBombRange();
         int bombY = (int) bomb.getY();
         int bombX = (int) bomb.getX();
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         replica.remove(bomb.getId());
         tickable.remove(bomb);
+        Pawn bombOwner = bomb.getPawn();
+        bombOwner.setAvailableBombs(bombOwner.getAvailableBombs() + 1);
 
-        for (int i = bombX; i <= bombX + renderTileSize * bombStrength; i += renderTileSize) {
+        //4 loop's for each direction of explosion
+        //fire in bomb tile is generated in first loop
+        for (int i = bombX; i <= bombX + renderTileSize * bombRange; i += renderTileSize) {
             Fire fire = new Fire(objectIdGenerator.getAndIncrement(), bombY, i);
-            placeFire(fire);
+            boolean isCollided = placeFire(fire);
+            if (isCollided) break;
         }
-        for (int i = bombX - renderTileSize; i >= bombX - renderTileSize * bombStrength; i -= renderTileSize) {
+        for (int i = bombX - renderTileSize; i >= bombX - renderTileSize * bombRange; i -= renderTileSize) {
             Fire fire = new Fire(objectIdGenerator.getAndIncrement(), bombY, i);
-            placeFire(fire);
+            boolean isCollided = placeFire(fire);
+            if (isCollided) break;
         }
-        for (int i = bombY + renderTileSize; i <= bombY + renderTileSize * bombStrength; i += renderTileSize) {
+        for (int i = bombY + renderTileSize; i <= bombY + renderTileSize * bombRange; i += renderTileSize) {
             Fire fire = new Fire(objectIdGenerator.getAndIncrement(), i, bombX);
-            placeFire(fire);
+            boolean isCollided = placeFire(fire);
+            if (isCollided) break;
         }
-        for (int i = bombY - renderTileSize; i >= bombY - renderTileSize * bombStrength; i -= renderTileSize) {
+        for (int i = bombY - renderTileSize; i >= bombY - renderTileSize * bombRange; i -= renderTileSize) {
             Fire fire = new Fire(objectIdGenerator.getAndIncrement(), i, bombX);
-            placeFire(fire);
+            boolean isCollided = placeFire(fire);
+            if (isCollided) break;
         }
     }
 
-    public void placeFire(Fire fire) {
+    public boolean placeFire(Fire fire) {
         boolean isCollided = false;
         ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         for (Object object :
@@ -178,6 +194,7 @@ public class GameMechanics {
             replica.put(objectIdGenerator.getAndIncrement(), fire);
             tickable.offer(fire);
         }
+        return isCollided;
     }
 
     public void handleInputQueue() {
@@ -204,24 +221,28 @@ public class GameMechanics {
                                 if (!isPlayerColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
                                     pawn.setY(pawn.getY() + pawn.getVelocity());
                                     pawn.setDirection(Direction.UP.toString());
+                                    checkBonus(pawn);
                                 }
                             }
                             if (direction == Direction.DOWN) {
                                 if (!isPlayerColliding(pawn.getY() - pawn.getVelocity(), pawn.getX())) {
                                     pawn.setY(pawn.getY() - pawn.getVelocity());
                                     pawn.setDirection(Direction.DOWN.toString());
+                                    checkBonus(pawn);
                                 }
                             }
                             if (direction == Direction.RIGHT) {
                                 if (!isPlayerColliding(pawn.getY(), pawn.getX() + pawn.getVelocity())) {
                                     pawn.setX(pawn.getX() + pawn.getVelocity());
                                     pawn.setDirection(Direction.RIGHT.toString());
+                                    checkBonus(pawn);
                                 }
                             }
                             if (direction == Direction.LEFT) {
                                 if (!isPlayerColliding(pawn.getY(), pawn.getX() - pawn.getVelocity())) {
                                     pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
+                                    checkBonus(pawn);
                                 }
                             }
                         }
@@ -240,12 +261,12 @@ public class GameMechanics {
                         Pawn pawn = (Pawn) object;
 
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
-                            //bomb have to be placed in the center of nearest tile
-                            long bombY = Math.round(pawn.getY() / renderTileSize) * renderTileSize;
-                            long bombX = Math.round(pawn.getX() / renderTileSize) * renderTileSize;
-                            Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), bombY, bombX);
-                            replica.put(bomb.getId(), bomb);
-                            tickable.offer(bomb);
+                            if (pawn.getAvailableBombs() > 0) {
+                                Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn);
+                                pawn.setAvailableBombs(pawn.getAvailableBombs() - 1);
+                                replica.put(bomb.getId(), bomb);
+                                tickable.offer(bomb);
+                            }
                         }
                     }
                 }
@@ -283,6 +304,37 @@ public class GameMechanics {
     public void tick() {
         tickable.forEach(Tickable::tick);
         doMechanics();
+    }
+
+    public void checkBonus(Pawn pawn) {
+
+        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
+
+        Bar playerBar = new Bar(pawn.getX(), pawn.getX() + playerSize, pawn.getY(), pawn.getY() + playerSize);
+
+        for (Object object :
+                replica.values()) {
+            if (object instanceof Bonus) {
+                Bonus bonus = (Bonus) object;
+                Bar bonusBar = new Bar(bonus.getX(), bonus.getX() + impassableTileSize,
+                        bonus.getY(), bonus.getY() + impassableTileSize);
+                if (bonusBar.collideCheck(playerBar)) {
+                    BonusType bonusType = bonus.getBonusType();
+                    if (bonusType == BonusType.BOMBS) {
+                        pawn.setAvailableBombs(pawn.getAvailableBombs() + 1);
+                        replica.remove(bonus.getId());
+                    }
+                    if (bonusType == BonusType.RANGE) {
+                        pawn.setBombRange(pawn.getBombRange() + 1);
+                        replica.remove(bonus.getId());
+                    }
+                    if (bonusType == BonusType.SPEED) {
+                        pawn.setVelocity(pawn.getVelocity() + 0.2);
+                        replica.remove(bonus.getId());
+                    }
+                }
+            }
+        }
     }
 
     public void render() {

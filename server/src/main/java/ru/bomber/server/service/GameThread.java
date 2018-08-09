@@ -3,11 +3,12 @@ package ru.bomber.server.service;
 public class GameThread extends Thread {
 
     private String gameId;
-    private boolean running = true;
+    private boolean running;
     private GameMechanics gameMechanics;
 
     public GameThread(String gameId) {
         this.gameId = gameId;
+        this.running = true;
         gameMechanics = new GameMechanics(gameId);
         gameMechanics.initGame(gameId);
     }
