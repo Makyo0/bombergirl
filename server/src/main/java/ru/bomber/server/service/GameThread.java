@@ -9,8 +9,12 @@ public class GameThread extends Thread {
     public GameThread(String gameId) {
         this.gameId = gameId;
         this.running = true;
-        gameMechanics = new GameMechanics(gameId);
-        gameMechanics.initGame(gameId);
+        this.gameMechanics = new GameMechanics(gameId);
+        this.gameMechanics.initGame(gameId);
+    }
+
+    public void setRunning(boolean running) {
+        this.running = running;
     }
 
     public GameMechanics getGameMechanics() {
@@ -33,15 +37,10 @@ public class GameThread extends Thread {
             delta += (now - lastTime) / ns;
             lastTime = now;
 
-            if (GameService.isGameFinished(Integer.valueOf(gameId))) {
-                running = false;
-                GameService.removeGame(Integer.valueOf(gameId));
-            }
-
             if (running) {
                 while (delta >= 1) {
-                    gameMechanics.tick();
                     gameMechanics.render();
+                    gameMechanics.tick();
                     frames++;
                     delta--;
                 }
