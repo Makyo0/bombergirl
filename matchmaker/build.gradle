@@ -10,6 +10,8 @@ repositories {
 }
 apply plugin: 'java'
 apply plugin: 'checkstyle'
+apply plugin: 'war'
+
 
 dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
