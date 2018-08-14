@@ -5,7 +5,6 @@ import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
 import ru.bomber.server.message.*;
 
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -90,8 +89,6 @@ public class GameMechanics {
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
         replica.put(pawn1.getId(), pawn1);
         replica.put(pawn2.getId(), pawn2);
-        tickable.offer(pawn1);
-        tickable.offer(pawn2);
     }
 
     public void doMechanics() {
@@ -240,7 +237,11 @@ public class GameMechanics {
                                     pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
                                     checkBonus(pawn);
+
                                 }
+                            }
+                            if (direction == Direction.IDLE) {
+                                pawn.setDirection("");
                             }
                         }
                     }

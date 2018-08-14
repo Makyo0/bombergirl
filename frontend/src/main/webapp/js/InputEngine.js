@@ -49,6 +49,15 @@ InputEngine.prototype.onKeyUp = function(event) {
         gInputEngine.actions[action] = false;
         event.preventDefault();
     }
+    action = "idle";
+    var subscribers = gInputEngine.subscribers[action];
+    if (subscribers) {
+        for (var i in subscribers) {
+            subscribers[i]()
+        }
+    }
+    gInputEngine.actions[action] = false;
+    event.preventDefault();
     return false;
 };
 

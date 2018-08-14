@@ -20,6 +20,9 @@ ServerProxy.prototype.setupMessaging = function() {
     gInputEngine.subscribe('right', function () {
         self.socket.send(gMessageBroker.move('right'))
     });
+    gInputEngine.subscribe('idle', function () {
+        self.socket.send(gMessageBroker.move('idle'))
+    });
     gInputEngine.subscribe('bomb', function () {
         self.socket.send(gMessageBroker.plantBomb());
     });
