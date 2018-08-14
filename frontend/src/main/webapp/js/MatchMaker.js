@@ -18,7 +18,7 @@ MatchMaker.prototype.getSessionId = function () {
         .substring(1);
 
     this.settings.data = name;
-    var matchMakerUrl = "localhost:8080/matchmaker/join";
+    var matchMakerUrl = "localhost:8070/matchmaker/join";
 
     $.ajax({
         contentType: 'application/x-www-form-urlencoded',

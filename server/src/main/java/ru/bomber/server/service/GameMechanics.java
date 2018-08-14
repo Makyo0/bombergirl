@@ -5,7 +5,6 @@ import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
 import ru.bomber.server.message.*;
 
-import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -16,19 +15,19 @@ public class GameMechanics {
     private AtomicInteger objectIdGenerator = new AtomicInteger();
     private LinkedBlockingQueue<InputQueueMessage> inputQueue = new LinkedBlockingQueue<>();
     private LinkedBlockingQueue<Tickable> tickable = new LinkedBlockingQueue<>();
+    private ConcurrentHashMap<Integer, Object> replica;
     private final static int impassableTileSize = 29;
     private final static int playerSize = 24;
     public final static int renderTileSize = 32;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
+        this.replica = GameService.getReplica(gameId);
     }
 
     public void initGame(String gameId) {
 
         System.out.println("Starting new game");
-
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
         //generating bonuses
         Bonus bonus = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 3,
@@ -90,8 +89,6 @@ public class GameMechanics {
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
         replica.put(pawn1.getId(), pawn1);
         replica.put(pawn2.getId(), pawn2);
-        tickable.offer(pawn1);
-        tickable.offer(pawn2);
     }
 
     public void doMechanics() {
@@ -107,7 +104,7 @@ public class GameMechanics {
             //check fire status
             if (object instanceof Fire) {
                 if (((Fire) object).getLifetime() == 0) {
-                    GameService.getReplica(gameId).remove(((Fire) object).getId());
+                    replica.remove(((Fire) object).getId());
                     tickable.remove(object);
                 }
             }
@@ -121,7 +118,6 @@ public class GameMechanics {
     }
 
     public void explodeBomb(Bomb bomb) {
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         int bombRange = bomb.getBombRange();
         int bombY = (int) bomb.getY();
         int bombX = (int) bomb.getX();
@@ -156,7 +152,6 @@ public class GameMechanics {
 
     public boolean placeFire(Fire fire) {
         boolean isCollided = false;
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
         for (Object object :
                 replica.values()) {
             if (object instanceof Wood) {
@@ -207,7 +202,6 @@ public class GameMechanics {
 
                 Direction direction = Direction.valueOf(message.findValue("direction").asText());
                 String pawnPlayerId = queueMessage.getPlayerId();
-                ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
                 for (Object object :
                         replica.values()) {
@@ -243,7 +237,11 @@ public class GameMechanics {
                                     pawn.setX(pawn.getX() - pawn.getVelocity());
                                     pawn.setDirection(Direction.LEFT.toString());
                                     checkBonus(pawn);
+
                                 }
+                            }
+                            if (direction == Direction.IDLE) {
+                                pawn.setDirection("");
                             }
                         }
                     }
@@ -252,7 +250,6 @@ public class GameMechanics {
             if (topic == Topic.PLANT_BOMB) {
                 //by server implementation sessionId == playerId
                 String pawnPlayerId = queueMessage.getPlayerId();
-                ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(String.valueOf(gameId));
 
                 for (Object object :
                         replica.values()) {
@@ -281,7 +278,7 @@ public class GameMechanics {
         Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
 
         for (Object object :
-                GameService.getReplica(gameId).values()) {
+                replica.values()) {
             if (object instanceof Wall || object instanceof Wood) {
                 Positionable obstacle = (Positionable) object;
                 Bar obstacleBar = new Bar(obstacle.getX(), obstacle.getX() + impassableTileSize,
@@ -308,7 +305,6 @@ public class GameMechanics {
 
     public void checkBonus(Pawn pawn) {
 
-        ConcurrentHashMap<Integer, Object> replica = GameService.getReplica(gameId);
 
         Bar playerBar = new Bar(pawn.getX(), pawn.getX() + playerSize, pawn.getY(), pawn.getY() + playerSize);
 
@@ -338,8 +334,7 @@ public class GameMechanics {
     }
 
     public void render() {
-        Collection replicaToSend = GameService.getReplica(gameId).values();
-        Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replicaToSend));
+        Message msg = new Message(Topic.REPLICA, JsonHelper.toJson(replica.values()));
         TextMessage message = new TextMessage(JsonHelper.toJson(msg));
         //System.out.println("Sending message " + message.getPayload() + "to gameId=" + gameId);
         GameService.broadcast(Integer.parseInt(gameId), message);

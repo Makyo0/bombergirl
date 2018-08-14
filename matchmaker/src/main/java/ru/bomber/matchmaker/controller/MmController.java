@@ -20,7 +20,7 @@ public class MmController {
     public static final int MAX_PLAYER_IN_GAME = 2;
 
     /**
-     * curl -X POST -i localhost:8080/matchmaker/join -d 'name=bomberman'
+     * curl -X POST -i localhost:8070/matchmaker/join -d 'name=bomberman'
      * we have default gameId = 42
      */
     @RequestMapping(

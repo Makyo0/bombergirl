@@ -47,6 +47,9 @@ public class GameService {
         TextMessage message = new TextMessage(JsonHelper.toJson(new Message(Topic.GAME_OVER, "")));
         send(player.getWebSocketSession(), message);
         disconnect(gameId, player.getWebSocketSession());
+        if (getGameConnections(gameId).size() == 0) {
+            removeGame(gameId);
+        }
     }
 
     public static void send(WebSocketSession session, TextMessage msg) {
@@ -108,11 +111,9 @@ public class GameService {
 
     public static void removeGame(int gameId) {
         System.out.println("Game:" + gameId + " is empty, removing from gameMap and closing gameThread");
+        gameThreads.get(gameId).setRunning(false);
         gameThreads.remove(gameId);
         gameMap.remove(gameId);
     }
 
-    public static boolean isGameFinished(int gameId) {
-        return getGameConnections(gameId).size() == 0;
-    }
 }
