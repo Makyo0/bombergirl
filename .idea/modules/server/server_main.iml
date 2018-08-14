@@ -9,13 +9,6 @@
         <webroots />
       </configuration>
     </facet>
-    <facet type="web" name="Web Gradle : server.war">
-      <configuration>
-        <webroots>
-          <root url="file://C:\Java\bombergirl\server\src\main\webapp" relative="/" />
-        </webroots>
-      </configuration>
-    </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_10">
     <output url="file://$MODULE_DIR$/../../../server/out/production/classes" />

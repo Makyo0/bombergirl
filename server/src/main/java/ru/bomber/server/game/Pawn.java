@@ -12,6 +12,7 @@ public class Pawn extends Positionable implements Tickable {
     private double velocity = 0.8;
     private int availableBombs = 1;
     private int bombRange = 1;
+    private int movingTimer = 0;
 
     public Pawn(int id, double y, double x) {
         this.id = id;
