@@ -1,5 +1,5 @@
 # bombergirl
-This is a final project of Java Technoatom/Technosphere course of Mail.ru Group, which can be found at:
+This is a final project of Java Technoatom/Technosphere course provided by Mail.ru Group, which can be found at:
 
 Git - https://github.com/rybalkinsd/atom
 
