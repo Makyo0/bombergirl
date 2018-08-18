@@ -36,6 +36,9 @@ public class GameThread extends Thread {
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
+            if (GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().size() == 0) {
+                GameService.removeGame(Integer.valueOf(gameId));
+            }
 
             if (running) {
                 while (delta >= 1) {

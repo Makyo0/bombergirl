@@ -47,9 +47,7 @@ public class GameService {
         TextMessage message = new TextMessage(JsonHelper.toJson(new Message(Topic.GAME_OVER, "")));
         send(player.getWebSocketSession(), message);
         disconnect(gameId, player.getWebSocketSession());
-        if (getGameConnections(gameId).size() == 0) {
-            removeGame(gameId);
-        }
+
     }
 
     public static void send(WebSocketSession session, TextMessage msg) {
