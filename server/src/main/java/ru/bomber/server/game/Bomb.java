@@ -14,6 +14,7 @@ public class Bomb extends Positionable implements Tickable {
         this.id = id;
         this.type = "Bomb";
         this.pawn = pawn;
+
         //bomb have to be placed in the center of nearest tile
         double bombY = Math.round(pawn.getY() / renderTileSize) * renderTileSize;
         double bombX = Math.round(pawn.getX() / renderTileSize) * renderTileSize;

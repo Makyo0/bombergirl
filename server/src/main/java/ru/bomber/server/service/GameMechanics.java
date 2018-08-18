@@ -30,7 +30,6 @@ public class GameMechanics {
     }
 
     public void initGame(String gameId) {
-
         System.out.println("Starting new game");
 
         //generating left/right borders of game field
@@ -224,20 +223,14 @@ public class GameMechanics {
             InputQueueMessage queueMessage = inputQueue.take();
             JsonNode message = JsonHelper.getJsonNode(queueMessage.getPayload());
             Topic topic = Topic.valueOf(message.findValue("topic").asText());
-
             if (topic == Topic.MOVE) {
-
                 Direction direction = Direction.valueOf(message.findValue("direction").asText());
                 String pawnPlayerId = queueMessage.getPlayerId();
-
                 for (Object object :
                         replica.values()) {
-
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
-
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
-
                             if (direction == Direction.UP) {
                                 if (!isPlayerColliding(pawn.getY() + pawn.getVelocity(), pawn.getX())) {
                                     pawn.setY(pawn.getY() + pawn.getVelocity());
@@ -277,13 +270,10 @@ public class GameMechanics {
             if (topic == Topic.PLANT_BOMB) {
                 //by server implementation sessionId == playerId
                 String pawnPlayerId = queueMessage.getPlayerId();
-
                 for (Object object :
                         replica.values()) {
-
                     if (object instanceof Pawn) {
                         Pawn pawn = (Pawn) object;
-
                         if (pawn.getPlayerId().equals(pawnPlayerId)) {
                             if (pawn.getAvailableBombs() > 0) {
                                 Bomb bomb = new Bomb(objectIdGenerator.getAndIncrement(), pawn);
@@ -301,9 +291,7 @@ public class GameMechanics {
     }
 
     public boolean isPlayerColliding(double pawnY, double pawnX) {
-
         Bar playerBar = new Bar(pawnX, pawnX + playerSize, pawnY, pawnY + playerSize);
-
         for (Object object :
                 replica.values()) {
             if (object instanceof Wall || object instanceof Wood) {
@@ -331,10 +319,7 @@ public class GameMechanics {
     }
 
     public void checkBonus(Pawn pawn) {
-
-
         Bar playerBar = new Bar(pawn.getX(), pawn.getX() + playerSize, pawn.getY(), pawn.getY() + playerSize);
-
         for (Object object :
                 replica.values()) {
             if (object instanceof Bonus) {

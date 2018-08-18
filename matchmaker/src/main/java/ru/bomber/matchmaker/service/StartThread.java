@@ -13,7 +13,6 @@ public class StartThread implements Runnable {
 
     @Override
     public void run() {
-
         try {
             long startTime = System.currentTimeMillis();
             long currentTime = System.currentTimeMillis();

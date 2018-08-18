@@ -14,7 +14,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Service
-@Scope("singleton")
 public class ConnectionHandler extends TextWebSocketHandler implements WebSocketHandler {
 
     @Override
