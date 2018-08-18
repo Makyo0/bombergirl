@@ -15,5 +15,4 @@ Backend is fully developed by myself.
 
 Project hosted at AWS http://18.197.237.155:8080/frontend/ , feel free to check it out in work.
 
-*Note*
-Game implemented for 4 players, so if you want to check it solo, you'll have to open 4 browser tabs.
+*Note*: Game implemented for 4 players, so if you want to check it solo, you'll have to open 4 browser tabs.
