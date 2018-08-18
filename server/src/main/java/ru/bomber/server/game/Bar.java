@@ -15,7 +15,6 @@ public class Bar {
     }
 
     public boolean collideCheck(Bar barToCheck) {
-
         boolean x1 = ((barToCheck.leftX >= leftX) && (barToCheck.leftX <= rightX));
         boolean x2 = ((barToCheck.rightX >= leftX) && (barToCheck.rightX <= rightX));
         boolean y1 = ((barToCheck.bottomY >= bottomY) && (barToCheck.bottomY <= topY));

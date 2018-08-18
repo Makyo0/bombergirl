@@ -19,10 +19,6 @@ public class MmController {
     public volatile String gameId = null;
     public static final int MAX_PLAYER_IN_GAME = 2;
 
-    /**
-     * curl -X POST -i localhost:8070/matchmaker/join -d 'name=bomberman'
-     * we have default gameId = 42
-     */
     @RequestMapping(
             path = "join",
             method = RequestMethod.POST,
@@ -30,9 +26,7 @@ public class MmController {
     @ResponseStatus(HttpStatus.OK)
     @CrossOrigin(origins = "*")
     public ResponseEntity<String> join(@RequestBody String data) throws IOException {
-
         String name = data.split("=")[1];
-
         if (ConnectionQueue.getInstance().isEmpty()) {
             System.out.println("Registering new player " + name);
             ConnectionQueue.getInstance().offer(new Connection(name));

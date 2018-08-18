@@ -1,5 +1,7 @@
 package ru.bomber.server.game;
 
+import java.util.Objects;
+
 // {"id":5,"type":"Fire","position":{"y":20,"x":10}}
 public class Fire extends Positionable implements Tickable {
 

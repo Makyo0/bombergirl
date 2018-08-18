@@ -30,7 +30,6 @@ public class GameService {
         return String.valueOf(newGameId);
     }
 
-
     public static String start(String gameId) {
         GameThread gameThread = new GameThread(gameId);
         gameThreads.put(Integer.valueOf(gameId), gameThread);

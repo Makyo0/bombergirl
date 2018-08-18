@@ -27,18 +27,4 @@ public class Point {
     public void setX(double x) {
         this.x = x;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Point point = (Point) o;
-        return y == point.y && x == point.x;
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(y, x);
-    }
 }
