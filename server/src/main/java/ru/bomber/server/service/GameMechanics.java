@@ -5,6 +5,7 @@ import org.springframework.web.socket.TextMessage;
 import ru.bomber.server.game.*;
 import ru.bomber.server.message.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,6 +20,9 @@ public class GameMechanics {
     private final static int impassableTileSize = 29;
     private final static int playerSize = 24;
     public final static int renderTileSize = 32;
+    private int bombsBonusCount = 4;
+    private int speedBonusCount = 4;
+    private int rangeBonusCount = 4;
 
     public GameMechanics(String gameId) {
         this.gameId = gameId;
@@ -28,17 +32,6 @@ public class GameMechanics {
     public void initGame(String gameId) {
 
         System.out.println("Starting new game");
-
-        //generating bonuses
-        Bonus bonus = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 3,
-                renderTileSize, BonusType.BOMBS);
-        replica.put(bonus.getId(), bonus);
-        Bonus bonus2 = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 4,
-                renderTileSize, BonusType.SPEED);
-        replica.put(bonus2.getId(), bonus2);
-        Bonus bonus3 = new Bonus(objectIdGenerator.getAndIncrement(), renderTileSize * 5,
-                renderTileSize, BonusType.RANGE);
-        replica.put(bonus3.getId(), bonus3);
 
         //generating left/right borders of game field
         for (int i = 0; i <= renderTileSize * 12; i += renderTileSize) {
@@ -82,13 +75,47 @@ public class GameMechanics {
             replica.put(rightWood.getId(), rightWood);
         }
 
+        //generating bonuses
+        for (Object object :
+                replica.values()) {
+            if (object instanceof Wood) {
+                getRandomBonus(((Wood) object).getY(), ((Wood) object).getX());
+            }
+        }
+
         //generating player Pawn's
-        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), 30, 33);
-        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), 352, 33);
+        Pawn pawn1 = new Pawn(objectIdGenerator.getAndIncrement(), renderTileSize, renderTileSize);
+        Pawn pawn2 = new Pawn(objectIdGenerator.getAndIncrement(), renderTileSize * 11, renderTileSize);
+        Pawn pawn3 = new Pawn(objectIdGenerator.getAndIncrement(), renderTileSize, renderTileSize * 15);
+        Pawn pawn4 = new Pawn(objectIdGenerator.getAndIncrement(), renderTileSize * 11, renderTileSize * 15);
         pawn1.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(0).getPlayerId());
         pawn2.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(1).getPlayerId());
+        pawn3.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(2).getPlayerId());
+        pawn4.setPlayerId(GameService.getGameMap().get(Integer.valueOf(gameId)).getPlayersList().get(3).getPlayerId());
         replica.put(pawn1.getId(), pawn1);
         replica.put(pawn2.getId(), pawn2);
+        replica.put(pawn3.getId(), pawn3);
+        replica.put(pawn4.getId(), pawn4);
+    }
+
+    private void getRandomBonus(double y, double x) {
+        //for each wood 15% chance to generate bonus of random type
+        if (Math.random() < 0.15) {
+            int bonusType = (int) Math.round(Math.random() * 10);
+            if (bonusType >= 0 && bonusType < 3 && bombsBonusCount > 0) {
+                Bonus bonus = new Bonus(objectIdGenerator.getAndIncrement(), y, x, BonusType.BOMBS);
+                replica.put(bonus.getId(), bonus);
+                bombsBonusCount--;
+            } else if (bonusType >= 3 && bonusType <= 6 && speedBonusCount > 0) {
+                Bonus bonus2 = new Bonus(objectIdGenerator.getAndIncrement(), y, x, BonusType.SPEED);
+                replica.put(bonus2.getId(), bonus2);
+                speedBonusCount--;
+            } else if (rangeBonusCount > 0) {
+                Bonus bonus3 = new Bonus(objectIdGenerator.getAndIncrement(), y, x, BonusType.RANGE);
+                replica.put(bonus3.getId(), bonus3);
+                rangeBonusCount--;
+            }
+        }
     }
 
     public void doMechanics() {

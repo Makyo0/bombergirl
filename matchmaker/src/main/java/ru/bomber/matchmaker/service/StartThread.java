@@ -3,7 +3,7 @@ package ru.bomber.matchmaker.service;
 public class StartThread implements Runnable {
 
     private String gameId;
-    private static final int MAX_PLAYER_IN_GAME = 2;
+    private static final int MAX_PLAYER_IN_GAME = 4;
     private boolean isRunning;
 
     public StartThread(String gameId) {
