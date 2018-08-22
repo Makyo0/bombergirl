@@ -7,7 +7,7 @@ YouTube - https://www.youtube.com/playlist?list=PLrCZzMib1e9pnFbVV3u4s7ki5NTnm7W
 
 Goal of this project is to develop backend server for multiplayer browser game, which is called BomberMan.
 
-Stack, which was used, is JavaSE/SpringBoot/JavaScript.
+Stack, which was used, is JavaSE/SpringBoot/JavaScript/Gradle.
 
 Some frontend was provided by course, sourses can be found at https://github.com/rybalkinsd/atom-bomberman-frontend
 
